@@ -55,8 +55,8 @@ public class GroupCreationWidget extends AGraphicsContainer implements IReceiver
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.white);
-		g.drawRoundRect(super.getX(),super.getY(),super.getWidth(),super.getHeight(),25,25);
+		g.setColor(Color.black);
+		g.drawRect(super.getX(),super.getY(),super.getWidth(),super.getHeight());
 		this.text.render(g);
 		this.confirm.render(g);
 		this.cancel.render(g);

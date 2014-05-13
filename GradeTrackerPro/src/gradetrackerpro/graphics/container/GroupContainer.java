@@ -20,14 +20,14 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	private GradeGrouping group;
 	private ArrayList<GradeDisplay> gradeDisplays;
 	public GroupContainer(int x, int y, int width, int height, Color slideColor, int percent, GradeGrouping group) {
-		super(x,y,width,height,slideColor);
+		super(x,y,width,height,slideColor,4);
 		this.group=group;
 		this.group.setPercent(percent);
 		this.gradeDisplays = new ArrayList<GradeDisplay>();
 		this.percent=percent;
-		this.title = new Label(super.getX()+8,super.getY()+8,super.getWidth()/2,super.getHeight()*3/24,this.percent+"%",Color.white);
+		this.title = new Label(super.getX()+8,super.getY()+8,super.getWidth()/2,super.getHeight()*3/24,this.percent+"%",Color.black);
 		super.addComponent(this.title);
-		this.cancelButton = new ButtonCancel(super.getX()+super.getWidth()-8-super.getHeight()*4/24,super.getY()+8,super.getHeight()*4/24,super.getHeight()*4/24,super.getHeight()/48);
+		this.cancelButton = new ButtonCancel(super.getX()+super.getWidth()-36-super.getHeight()*4/24,super.getY()+8,super.getHeight()*4/24,super.getHeight()*4/24,super.getHeight()/48);
 		this.cancelButton.addReceiver(this);
 		super.addComponent(this.cancelButton);
 		this.addButton = this.createNewAddButton("new-grade");
@@ -43,12 +43,12 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		return button;
 	}
 	private void addGradeDisplay(Grade grade){
-		int y = super.realHeight;
+		int y = super.realHeight - 4;
 		GradeDisplay display = new GradeDisplay(super.getX()+8,y+super.getY(),super.getWidth()-16-16,32, grade);
 		super.addComponent(display);
 		display.addReceiver(this);
-		this.addReceiver(display);
 		this.gradeDisplays.add(display);
+		this.addReceiver(display);
 	}
 	public void ping(String title, String[] data){
 		if(title.equals("mouse-data")){
@@ -59,6 +59,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			this.addButton.mouseAction(x,y,event);
 			if(this.createGrade!=null)
 				this.createGrade.ping(title,data);
+			super.ping(title, data);
 		}
 		else if(title.equals("key-data")){
 			if(this.createGrade!=null)
@@ -96,7 +97,18 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			this.group.addGrade(grade);
 			this.updateTotalGrade();
 			this.addGradeDisplay(grade);
+			this.addButton = createNewAddButton("new-grade");
+			super.addComponent(this.addButton);
+			super.pushData("update", null);
 		}
+	}
+	@Override
+	public void setLocation(int x, int y){
+		System.out.println("RUN");
+		int dy = super.getY()-y;
+		super.setLocation(x, y);
+		if(this.createGrade!=null)
+			this.createGrade.setLocation(this.createGrade.getX(), this.createGrade.getY()+dy);
 	}
 	private void updateTotalGrade(){
 		double contribution = this.group.getValue();
@@ -108,7 +120,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	}
 	public void render(Graphics g){
 		super.render(g);
-		g.setColor(Color.white);
-		g.drawRoundRect(super.getX(), super.getY(), super.getWidth(), super.getHeight(), 25, 25);
+		g.setColor(Color.black);
+		g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 	}
 }

@@ -26,7 +26,7 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 		this.setBackground(ProgramManager.BACKGROUND_COLOR);
 		this.receivers = new ArrayList<IReceiver>();
 		this.course = course;
-		this.courseContainer = new CourseContainer(8,48,ProgramManager.SCREEN_WIDTH-16,ProgramManager.SCREEN_HEIGHT-104,new Color(255,255,255,200),this.course);
+		this.courseContainer = new CourseContainer(8,48,ProgramManager.SCREEN_WIDTH-16,ProgramManager.SCREEN_HEIGHT-104,new Color(0,0,0,50),this.course);
 		this.courseContainer.addReceiver(this);
 		this.homeButton = new ButtonHome(ProgramManager.SCREEN_WIDTH/30,this.courseContainer.getX()+this.courseContainer.getHeight()+56,ProgramManager.SCREEN_WIDTH*13/30,ProgramManager.SCREEN_HEIGHT*2/24);
 		this.homeButton.addReceiver(this);
@@ -69,16 +69,19 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 		this.courseContainer.render(g);
 		this.exitButton.render(g);
 		this.homeButton.render(g);
+		g.setColor(Color.black);
+		g.drawRect(0, 0, super.getWidth()-1, super.getHeight()-1);
 	}
 	private void drawTitle(Graphics g){
-		g.setColor(new Color(255,255,255,100));
+		g.setColor(new Color(0,0,0,25));
 		g.fillRect(0,0,this.getWidth(),40);
+		g.setColor(Color.black);
 		g.drawLine(0,40,this.getWidth(),40);
-		g.setFont(new Font("Serif",Font.ITALIC,24));
+		g.setFont(new Font("Serif",Font.PLAIN,24));
 		FontMetrics metrics = g.getFontMetrics();
 		int width = metrics.stringWidth("GradeTrackerPro");
 		int height = metrics.getHeight();
-		g.setColor(Color.white);
+		g.setColor(Color.black);
 		g.drawString("GradeTrackerPro",this.getWidth()/2-width/2,20+height/4);
 	}
 	private class ScreenMouseHandler extends MouseAdapter{

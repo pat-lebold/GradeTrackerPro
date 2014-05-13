@@ -68,14 +68,15 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
     this.exitButton.render(g);
   }
   private void drawTitle(Graphics g){
-    g.setColor(new Color(255,255,255,100));
+    g.setColor(new Color(0,0,0,25));
     g.fillRect(0,0,this.getWidth(),40);
+	g.setColor(Color.black);
     g.drawLine(0,40,this.getWidth(),40);
-    g.setFont(new Font("Serif",Font.ITALIC,24));
+    g.setFont(new Font("Serif",Font.PLAIN,24));
     FontMetrics metrics = g.getFontMetrics();
     int width = metrics.stringWidth("GradeTrackerPro");
     int height = metrics.getHeight();
-    g.setColor(Color.white);
+    g.setColor(Color.black);
     g.drawString("GradeTrackerPro",this.getWidth()/2-width/2,20+height/4);
   }
   private class ScreenMouseHandler extends MouseAdapter{

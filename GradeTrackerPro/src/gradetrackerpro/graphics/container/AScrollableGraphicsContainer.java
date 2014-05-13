@@ -20,15 +20,17 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 	private boolean mouseInScrollBar;
 	private int lastY;
 	private int newY;
-	public AScrollableGraphicsContainer(int x, int y, int width, int height, Color slideColor){
+	public AScrollableGraphicsContainer(int x, int y, int width, int height, Color slideColor, int slideOffset){
 		super(x,y,width,height);
-		this.slideX = this.getWidth() - this.slideWidth;
+		this.slideColor = slideColor;
+		this.slideX = this.getWidth() - slideOffset;
 		setupScrollBar();
 		this.scrolling = false;
 		this.mouseInScrollBar = false;
 	}
 	public void setLocation(int x, int y){
 		int dy = y - super.getY();
+		this.slideY += dy;
 		super.setLocation(x,y);
 		this.updateComponents(dy);
 	}
@@ -48,8 +50,6 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 				max = component.getY()+component.getHeight();
 		}
 		this.realHeight = max - this.getY() + 8;
-		//System.out.println(this.realHeight);
-		//System.out.println(components.size());
 		this.setupScrollBar();
 		this.updateComponents(0);
 	}
@@ -86,10 +86,10 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 		for(AGraphicsEntity entity: super.pullComponents()){
 			entity.setLocation(entity.getX(),(int)(entity.getY()+dy));
 			if(entity.getY()>=super.getY()&&entity.getY()+entity.getHeight()<=super.getY()+super.getHeight()){
-				//entity.setVisibility(true);
+				entity.setVisibility(true);
 			}
 			else{
-				//entity.setVisibility(false);
+				entity.setVisibility(false);
 			}
 		}
 		super.pushData("update", null);

@@ -17,11 +17,11 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 	private GroupCreationWidget createGroup;
 	private ArrayList<GroupContainer> groups;
 	public CourseContainer(int x, int y, int width, int height, Color slideColor, Course course) {
-		super(x, y, width, height, slideColor);
+		super(x, y, width, height, slideColor, 16);
 		this.course = course;
-		this.title = new Label(super.getX(),super.getY(),super.getWidth()/2,super.getHeight()*3/24,this.course.getName(),Color.white);
+		this.title = new Label(super.getX(),super.getY(),super.getWidth()/2,super.getHeight()*3/24,this.course.getName(),Color.black);
 		super.addComponent(this.title);
-		this.grade = new Label(super.getWidth()/2,super.getY(),super.getWidth()/2,super.getHeight()*3/24,this.course.getPercent()+"%", Color.yellow);
+		this.grade = new Label(super.getWidth()/2,super.getY(),super.getWidth()/2,super.getHeight()*3/24,this.course.getPercent()+"%", Color.darkGray);
 		super.addComponent(this.grade);
 		this.addButton = createNewAddButton("new-group");
 		super.addComponent(addButton);
@@ -99,7 +99,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			int y = createGroup.getY();
 			this.createGroup = null;
 			
-			GroupContainer newGroup = new GroupContainer(super.getX()+8,y,super.getWidth()-24-super.slideWidth,120,new Color(255,255,255,200),percent,gradeGroup);
+			GroupContainer newGroup = new GroupContainer(super.getX()+8,y,super.getWidth()-24-super.slideWidth,120,new Color(0,0,0,100),percent,gradeGroup);
 			super.addComponent(newGroup);
 			
 			newGroup.addReceiver(this);
@@ -138,7 +138,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 	}
 	public void render(Graphics g){
 		super.render(g);
-		g.setColor(Color.white);
-		g.drawRoundRect(super.getX(), super.getY(), super.getWidth(), super.getHeight(), 25, 25);
+		g.setColor(Color.black);
+		g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
 	}
 }

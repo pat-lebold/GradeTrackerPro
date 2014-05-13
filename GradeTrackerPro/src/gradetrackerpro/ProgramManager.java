@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 public class ProgramManager implements IReceiver{
-	public static final Color BACKGROUND_COLOR = new Color(25,0,40);
+	public static final Color BACKGROUND_COLOR = new Color(255,255,255);
 	public static final int SCREEN_WIDTH = 250;
 	public static final int SCREEN_HEIGHT = 400;
 	private JFrame frame;

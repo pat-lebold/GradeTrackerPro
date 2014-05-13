@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class ButtonAdd extends AColorButton{
 	private String message;
 	public ButtonAdd(int x, int y, int width, int height, String message){
-		super(x,y,width,height,"",new Color(255,255,255,100),new Color(255,255,255,150),new Color(255,255,255,200));
+		super(x,y,width,height,"",new Color(0,0,0,50),new Color(0,0,0,100),new Color(0,0,0,150));
 		this.message=message;
 	}
 	public void pushData(String title, String[] data){
