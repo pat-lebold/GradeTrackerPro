@@ -55,6 +55,10 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 	}
 	public void ping(String title, String[] data){
 		if(title.equals("mouse-data")){
+			if(this.addButton==null&&super.pullComponents().contains(this.createGroup)){
+				super.removeComponent(this.createGroup);
+				this.createGroup = null;
+			}
 			int x = Integer.parseInt(data[0]);
 			int y = Integer.parseInt(data[1]);
 			int event = Integer.parseInt(data[2]);
@@ -84,6 +88,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 		}
 		else if(title.equals("remove-widget")){
 			super.removeComponent(this.createGroup);
+			this.createGroup.setVisibility(false);
 			this.createGroup=null;
 			this.addButton = this.createNewAddButton("new-group");
 			super.addComponent(this.addButton);
@@ -91,24 +96,25 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 		}
 		else if(title.equals("create-group")){
 			super.removeComponent(this.createGroup);
-			
+			this.createGroup.setVisibility(false);
+
 			int percent = Integer.parseInt(data[0]);
 			GradeGrouping gradeGroup = new GradeGrouping(this.course);
 			this.course.addGroup(gradeGroup);
-			
+
 			int y = createGroup.getY();
 			this.createGroup = null;
-			
+
 			GroupContainer newGroup = new GroupContainer(super.getX()+8,y,super.getWidth()-24-super.slideWidth,120,new Color(0,0,0,100),percent,gradeGroup);
 			super.addComponent(newGroup);
-			
+
 			newGroup.addReceiver(this);
 			this.addReceiver(newGroup);
 			this.groups.add(newGroup);
-			
+
 			this.addButton = this.createNewAddButton("new-group");
 			super.addComponent(this.addButton);
-			
+
 			super.ping("update",null);
 		}
 		else if(title.equals("cancel-group")){

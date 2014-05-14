@@ -7,6 +7,7 @@ import gradetrackerpro.graphics.text.NumberTextBox;
 import gradetrackerpro.graphics.text.TextBox;
 import gradetrackerpro.transmission.IReceiver;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 public class GradeCreationWidget extends AGraphicsContainer implements IReceiver {
 	private int earned;
 	private int total;

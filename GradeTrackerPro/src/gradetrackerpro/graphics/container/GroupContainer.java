@@ -52,11 +52,16 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	}
 	public void ping(String title, String[] data){
 		if(title.equals("mouse-data")){
+			if(this.addButton==null&&super.pullComponents().contains(this.createGrade)){
+				super.removeComponent(createGrade);
+				this.createGrade = null;
+			}
 			int x = Integer.parseInt(data[0]);
 			int y = Integer.parseInt(data[1]);
 			int event = Integer.parseInt(data[2]);
 			this.cancelButton.mouseAction(x,y,event);
-			this.addButton.mouseAction(x,y,event);
+			if(this.addButton.getVisibility())
+				this.addButton.mouseAction(x,y,event);
 			if(this.createGrade!=null)
 				this.createGrade.ping(title,data);
 			super.ping(title, data);
@@ -75,6 +80,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			this.createGrade.addReceiver(this);
 			this.addReceiver(createGrade);
 			super.addComponent(this.createGrade);
+			this.addButton.setVisibility(false);
 			super.removeComponent(this.addButton);
 			super.ping("update", null);
 		}
@@ -89,6 +95,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		}
 		else if(title.equals("create-grade")){
 			super.removeComponent(this.createGrade);
+			this.createGrade.setVisibility(false);
 			this.createGrade = null;
 			String name = data[0];
 			int actual = Integer.parseInt(data[1]);
@@ -104,7 +111,6 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	}
 	@Override
 	public void setLocation(int x, int y){
-		System.out.println("RUN");
 		int dy = super.getY()-y;
 		super.setLocation(x, y);
 		if(this.createGrade!=null)
