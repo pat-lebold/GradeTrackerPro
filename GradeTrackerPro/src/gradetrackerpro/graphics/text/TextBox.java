@@ -18,7 +18,7 @@ public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 	protected String softText;
 	protected Font font;
 	private boolean enabled;
-	public TextBox(int x, int y, int width, int height, String defaultText, String message){
+	public TextBox(double x, double y, int width, int height, String defaultText, String message){
 		super(x,y,width,height);
 		this.receivers = new ArrayList<IReceiver>();
 		this.defaultText=defaultText;
@@ -48,11 +48,11 @@ public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 	}
 	public void render(Graphics g){
 		g.setColor(Color.white);
-		g.fillRect(super.getX(), super.getY(), super.getWidth()-1, super.getHeight()-1);
+		g.fillRect((int)super.getX(), (int)super.getY(), super.getWidth()-1, super.getHeight()-1);
 		g.setColor(Color.black);
-		g.drawRect(super.getX(),super.getY(),super.getWidth()-1,super.getHeight()-1);
+		g.drawRect((int)super.getX(),(int)super.getY(),super.getWidth()-1,super.getHeight()-1);
 		if(this.enabled)
-			g.drawRect(1+super.getX(),1+super.getY(),super.getWidth()-3,super.getHeight()-3);
+			g.drawRect(1+(int)super.getX(),1+(int)super.getY(),super.getWidth()-3,super.getHeight()-3);
 		this.drawText(g);
 	}
 	public void drawText(Graphics g){
@@ -68,9 +68,9 @@ public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 		else{
 			this.font = new Font("Serif",Font.PLAIN,24);
 			g.setColor(Color.black);
-			g.drawString(this.hardText, 4+super.getX(), super.getY() + super.getHeight()/2 + fontHeight/4);
+			g.drawString(this.hardText, 4+(int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
 			g.setColor(Color.gray);
-			g.drawString(this.softText, hardWidth + 4 + super.getX(), super.getY() + super.getHeight()/2 + fontHeight/4);
+			g.drawString(this.softText, hardWidth + 4 + (int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
 		}
 	}
 	public void addReceiver(IReceiver receiver){
@@ -81,8 +81,8 @@ public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 	}
 	public void ping(String title, String[] data){
 		if(title.equals("mouse-data")){
-			int mouseX = Integer.parseInt(data[0]);
-			int mouseY = Integer.parseInt(data[1]);
+			int mouseX = (int)Double.parseDouble(data[0]);
+			int mouseY = (int)Double.parseDouble(data[1]);
 			int event = Integer.parseInt(data[2]);
 			if(event==MouseEvent.MOUSE_PRESSED){
 				if(mouseX>super.getX()&&mouseX<super.getX()+super.getWidth()&&mouseY>super.getY()&&mouseY<super.getY()+super.getHeight())

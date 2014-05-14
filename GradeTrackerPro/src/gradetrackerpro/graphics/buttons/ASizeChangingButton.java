@@ -8,7 +8,7 @@ public abstract class ASizeChangingButton extends AGraphicsEntity implements IBu
 	private ArrayList<IReceiver> receivers;
 	private int sizeChange;
 	private boolean in;
-	public ASizeChangingButton(int x, int y, int width, int height, int sizeChange){
+	public ASizeChangingButton(double x, double y, int width, int height, int sizeChange){
 		super(x,y,width,height);
 		this.receivers = new ArrayList<IReceiver>();
 		this.sizeChange=sizeChange;

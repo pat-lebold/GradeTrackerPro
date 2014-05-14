@@ -19,7 +19,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	private GradeCreationWidget createGrade;
 	private GradeGrouping group;
 	private ArrayList<GradeDisplay> gradeDisplays;
-	public GroupContainer(int x, int y, int width, int height, Color slideColor, int percent, GradeGrouping group) {
+	public GroupContainer(double x, double y, int width, int height, Color slideColor, int percent, GradeGrouping group) {
 		super(x,y,width,height,slideColor,4);
 		this.group=group;
 		this.group.setPercent(percent);
@@ -56,8 +56,8 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 				super.removeComponent(createGrade);
 				this.createGrade = null;
 			}
-			int x = Integer.parseInt(data[0]);
-			int y = Integer.parseInt(data[1]);
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
 			int event = Integer.parseInt(data[2]);
 			this.cancelButton.mouseAction(x,y,event);
 			if(this.addButton.getVisibility())
@@ -110,8 +110,8 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		}
 	}
 	@Override
-	public void setLocation(int x, int y){
-		int dy = super.getY()-y;
+	public void setLocation(double x, double y){
+		double dy = super.getY()-y;
 		super.setLocation(x, y);
 		if(this.createGrade!=null)
 			this.createGrade.setLocation(this.createGrade.getX(), this.createGrade.getY()+dy);
@@ -127,6 +127,6 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	public void render(Graphics g){
 		super.render(g);
 		g.setColor(Color.black);
-		g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth(), super.getHeight());
 	}
 }

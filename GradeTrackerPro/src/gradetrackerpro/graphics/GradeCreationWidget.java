@@ -7,7 +7,6 @@ import gradetrackerpro.graphics.text.NumberTextBox;
 import gradetrackerpro.graphics.text.TextBox;
 import gradetrackerpro.transmission.IReceiver;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
 public class GradeCreationWidget extends AGraphicsContainer implements IReceiver {
 	private int earned;
 	private int total;
@@ -16,7 +15,7 @@ public class GradeCreationWidget extends AGraphicsContainer implements IReceiver
 	private NumberTextBox textTotal;
 	private ASizeChangingButton confirm;
 	private ASizeChangingButton cancel;
-	public GradeCreationWidget(int x, int y, int width, int height) {
+	public GradeCreationWidget(double x, double y, int width, int height) {
 		super(x, y, width, height);
 		this.textName = new TextBox(super.getX()+4,super.getY()+4,super.getWidth()/3-8,super.getHeight()-8,"name","text-name");
 		this.textName.addReceiver(this);
@@ -38,8 +37,8 @@ public class GradeCreationWidget extends AGraphicsContainer implements IReceiver
 			this.textTotal.ping(title,data);
 		}
 		else if(title.equals("mouse-data")){
-			int x = Integer.parseInt(data[0]);
-			int y = Integer.parseInt(data[1]);
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
 			int event = Integer.parseInt(data[2]);
 			this.textName.ping(title, data);
 			this.textEarned.ping(title,data);

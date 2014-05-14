@@ -44,8 +44,8 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 	}
 	public void ping(String title, String[] data){
 		if(title.equals("mouse-data")){
-			int x = Integer.parseInt(data[0]);
-			int y = Integer.parseInt(data[1]);
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
 			int event = Integer.parseInt(data[2]);
 			this.exitButton.mouseAction(x,y,event);
 			this.homeButton.mouseAction(x,y,event);

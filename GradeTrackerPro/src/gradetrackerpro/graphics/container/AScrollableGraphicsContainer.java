@@ -20,7 +20,7 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 	private boolean mouseInScrollBar;
 	private int lastY;
 	private int newY;
-	public AScrollableGraphicsContainer(int x, int y, int width, int height, Color slideColor, int slideOffset){
+	public AScrollableGraphicsContainer(double x, double y, int width, int height, Color slideColor, int slideOffset){
 		super(x,y,width,height);
 		this.slideColor = slideColor;
 		this.slideX = this.getWidth() - slideOffset;
@@ -28,8 +28,9 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 		this.scrolling = false;
 		this.mouseInScrollBar = false;
 	}
-	public void setLocation(int x, int y){
-		int dy = y - super.getY();
+	@Override
+	public void setLocation(double x, double y){
+		double dy = y - super.getY();
 		this.slideY += dy;
 		super.setLocation(x,y);
 		this.updateComponents(dy);
@@ -37,54 +38,59 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 	public void addComponent(AGraphicsEntity component){
 		super.addComponent(component);
 		this.reevaluateRealHeight();
+		this.setupScrollBar();
+		this.updateComponents(0);
 	}
 	public void removeComponent(AGraphicsEntity component){
 		super.removeComponent(component);
 		this.reevaluateRealHeight();
+		this.setupScrollBar();
+		this.updateComponents(0);
 	}
 	private void reevaluateRealHeight(){
 		ArrayList<AGraphicsEntity> components = super.pullComponents();
-		int max = 0;
+		double max = 0;
 		for(AGraphicsEntity component:components){
 			if(max<component.getY()+component.getHeight())
 				max = component.getY()+component.getHeight();
 		}
-		this.realHeight = max - this.getY() + 8;
-		this.setupScrollBar();
-		this.updateComponents(0);
+		this.realHeight = (int)(max - this.getY());
 	}
 	private void setupScrollBar(){
-		double oldSlideY = this.slideY;
-		this.slideY = this.getY() + 8;
-		if(super.getHeight() < this.realHeight){
-			this.updateComponents((int)(this.slideDensity*(this.slideY-oldSlideY)));
-			this.slideHeight = super.getHeight() * (double)(super.getHeight()-24)/this.realHeight;
+		double y_diff = (this.slideY - super.getY()) * this.slideDensity;
+		if(this.realHeight>super.getHeight()){
+			this.slideDensity = (double)this.realHeight/(super.getHeight());
+			this.slideHeight = super.getHeight() * (double)(super.getHeight())/this.realHeight;
+			this.slideY = super.getY() + y_diff/slideDensity;
 		}
-		else
+		else{
 			this.slideHeight = 0;
-		this.slideDensity = (double)this.realHeight/super.getHeight();
+			this.slideY = super.getY();
+			this.updateComponents((int)y_diff);
+			return;
+		}
 	}
 	public void scrollUp(){
 		this.slideY--;
-		if(this.slideY<this.getY()+8){
-			this.slideY = this.getY() + 8;
+		if(this.slideY<this.getY()){
+			this.slideY = this.getY();
 		}
 		else{
-			this.updateComponents((int)this.slideDensity);
+			this.updateComponents(this.slideDensity);
 		}
 	}
 	public void scrollDown(){
 		this.slideY++;
-		if(this.slideY+this.slideHeight>super.getY()+super.getHeight()-8){
-			this.slideY = super.getY()+super.getHeight()-8-this.slideHeight;
+		if(this.slideY+this.slideHeight>super.getY()+super.getHeight()+1){
+			this.slideY = super.getY()+super.getHeight()-this.slideHeight+1;
 		}
 		else{
-			this.updateComponents(-(int)this.slideDensity);
+			this.updateComponents(-this.slideDensity);
 		}
 	}
-	private void updateComponents(int dy){
+	private void updateComponents(double dy){
 		for(AGraphicsEntity entity: super.pullComponents()){
-			entity.setLocation(entity.getX(),(int)(entity.getY()+dy));
+			entity.setLocation(entity.getX(),entity.getY()+dy);
 			if(entity.getY()>=super.getY()&&entity.getY()+entity.getHeight()<=super.getY()+super.getHeight()){
 				entity.setVisibility(true);
 			}
@@ -107,8 +113,8 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 				this.scrolling = false;
 			}
 			else if(event==MouseEvent.MOUSE_MOVED||event==MouseEvent.MOUSE_DRAGGED){
-				int mouseX = Integer.parseInt(data[0]);
-				int mouseY = Integer.parseInt(data[1]);
+				int mouseX = (int)Double.parseDouble(data[0]);
+				int mouseY = (int)Double.parseDouble(data[1]);
 				this.lastY = this.newY;
 				this.newY = mouseY;
 				if(this.scrolling){

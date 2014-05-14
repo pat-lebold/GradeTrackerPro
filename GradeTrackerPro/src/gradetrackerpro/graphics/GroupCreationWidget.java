@@ -13,7 +13,7 @@ public class GroupCreationWidget extends AGraphicsContainer implements IReceiver
 	private TextBox text;
 	private ASizeChangingButton confirm;
 	private ASizeChangingButton cancel;
-	public GroupCreationWidget(int x, int y, int width, int height) {
+	public GroupCreationWidget(double x, double y, int width, int height) {
 		super(x, y, width, height);
 		this.text = new NumberTextBox(super.getX()+4,super.getY()+4,super.getWidth()/2-8,super.getHeight()-8,"%","text-percent");
 		this.text.addReceiver(this);
@@ -31,8 +31,8 @@ public class GroupCreationWidget extends AGraphicsContainer implements IReceiver
 			this.text.ping(title, data);
 		}
 		else if(title.equals("mouse-data")){
-			int x = Integer.parseInt(data[0]);
-			int y = Integer.parseInt(data[1]);
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
 			int event = Integer.parseInt(data[2]);
 			this.text.ping(title, data);
 			this.confirm.mouseAction(x,y,event);
@@ -56,7 +56,7 @@ public class GroupCreationWidget extends AGraphicsContainer implements IReceiver
 	@Override
 	public void render(Graphics g) {
 		g.setColor(Color.black);
-		g.drawRect(super.getX(),super.getY(),super.getWidth(),super.getHeight());
+		g.drawRect((int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight());
 		this.text.render(g);
 		this.confirm.render(g);
 		this.cancel.render(g);

@@ -1,7 +1,7 @@
 package gradetrackerpro.graphics.text;
 import java.awt.event.KeyEvent;
 public class NumberTextBox extends TextBox {
-	public NumberTextBox(int x,int y,int width,int height,String defaultText,String message) {
+	public NumberTextBox(double x,double y,int width,int height,String defaultText,String message) {
 		super(x,y,width,height,defaultText,message);
 	}
 	public void ping(String title, String[] data){

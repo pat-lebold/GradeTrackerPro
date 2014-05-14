@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public abstract class AGraphicsContainer extends AGraphicsEntity implements ITrigger{
 	private ArrayList<AGraphicsEntity> components;
 	private ArrayList<IReceiver> receivers;
-	public AGraphicsContainer(int x, int y, int width, int height){
+	public AGraphicsContainer(double x, double y, int width, int height){
 		super(x,y,width,height);
 		this.components = new ArrayList<AGraphicsEntity>();
 		this.receivers = new ArrayList<IReceiver>();

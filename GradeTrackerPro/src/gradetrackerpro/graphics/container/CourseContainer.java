@@ -34,7 +34,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 		return button;
 	}
 	private void relocateElements(){
-		int y = super.getY() + super.getHeight()*3/24 + 8;
+		double y = super.getY() + super.getHeight()*3/24 + 8;
 		for(GroupContainer group:this.groups){
 			super.removeComponent(group);
 			group.setLocation(group.getX(),y);
@@ -59,8 +59,8 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 				super.removeComponent(this.createGroup);
 				this.createGroup = null;
 			}
-			int x = Integer.parseInt(data[0]);
-			int y = Integer.parseInt(data[1]);
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
 			int event = Integer.parseInt(data[2]);
 			this.addButton.mouseAction(x,y,event);
 			if(this.createGroup!=null)
@@ -102,7 +102,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			GradeGrouping gradeGroup = new GradeGrouping(this.course);
 			this.course.addGroup(gradeGroup);
 
-			int y = createGroup.getY();
+			double y = createGroup.getY();
 			this.createGroup = null;
 
 			GroupContainer newGroup = new GroupContainer(super.getX()+8,y,super.getWidth()-24-super.slideWidth,120,new Color(0,0,0,100),percent,gradeGroup);
@@ -119,8 +119,8 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 		}
 		else if(title.equals("cancel-group")){
 			GroupContainer group = null;
-			int x = Integer.parseInt(data[0]);
-			int y = Integer.parseInt(data[1]);
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
 			int percent = Integer.parseInt(data[2]);
 			for(GroupContainer g:this.groups){
 				if(g.getX()==x&&g.getY()==y&&g.getPercent()==percent){
@@ -145,6 +145,6 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 	public void render(Graphics g){
 		super.render(g);
 		g.setColor(Color.black);
-		g.drawRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth(), super.getHeight());
 	}
 }

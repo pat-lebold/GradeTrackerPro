@@ -13,7 +13,7 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 	private Grade grade;
 	private Label display;
 	
-	public GradeDisplay(int x, int y, int width, int height, Grade grade) {
+	public GradeDisplay(double x, double y, int width, int height, Grade grade) {
 		super(x, y, width, height);
 		this.grade=grade;
 		this.display = new Label(x,y,width,height,this.grade.getName()+": "+this.grade.getEarned()+"/"+this.grade.getTotal()+" "+this.grade.getPercentEarned()+"%",Color.black);
@@ -21,7 +21,7 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 	}
 	
 	@Override
-	public void setLocation(int x, int y){
+	public void setLocation(double x, double y){
 		super.setLocation(x,y);
 		this.display.setLocation(x,y);
 	}
@@ -30,9 +30,9 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 	public void render(Graphics g) {
 		super.renderComponents(g);
 		g.setColor(new Color(0,0,0,25));
-		g.fillRect(super.getX(),super.getY(),super.getWidth()-1,super.getHeight()-1);
+		g.fillRect((int)super.getX(),(int)super.getY(),super.getWidth()-1,super.getHeight()-1);
 		g.setColor(Color.black);
-		g.drawRect(super.getX(),super.getY(),super.getWidth()-1,super.getHeight()-1);
+		g.drawRect((int)super.getX(),(int)super.getY(),super.getWidth()-1,super.getHeight()-1);
 	}
 
 	@Override

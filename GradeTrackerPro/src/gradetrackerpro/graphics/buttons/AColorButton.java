@@ -17,7 +17,7 @@ public abstract class AColorButton extends AGraphicsEntity implements IButton{
   private Color pressColor;
   private boolean mouseIn;
   private boolean mouseDown;
-  public AColorButton(int x, int y, int width, int height, String name, Color baseColor, Color hoverColor, Color pressColor){
+  public AColorButton(double x, double y, int width, int height, String name, Color baseColor, Color hoverColor, Color pressColor){
     super(x,y,width,height);
     this.receivers=new ArrayList<IReceiver>();
     this.name=name;
@@ -81,12 +81,12 @@ public abstract class AColorButton extends AGraphicsEntity implements IButton{
   }
   public void render(Graphics g){
     g.setColor(this.color);
-    g.fillRect(super.getX(), super.getY(), super.getWidth(), super.getHeight());
+    g.fillRect((int)super.getX(), (int)super.getY(), super.getWidth(), super.getHeight());
     g.setFont(new Font("Serif",Font.PLAIN,24));
      FontMetrics metrics = g.getFontMetrics();
    int width = metrics.stringWidth(this.name);
    int height = metrics.getHeight();
    g.setColor(Color.black);
-   g.drawString(this.name,super.getX()+super.getWidth()/2-width/2,super.getY()+super.getHeight()/2+height/4);
+   g.drawString(this.name,(int)super.getX()+(int)super.getWidth()/2-width/2,(int)super.getY()+super.getHeight()/2+height/4);
   }
 }

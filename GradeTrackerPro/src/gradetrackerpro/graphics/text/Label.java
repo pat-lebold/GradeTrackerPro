@@ -5,7 +5,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 public class Label extends TextBox {
 	private Color color;
-	public Label(int x, int y, int width, int height, String text, Color color) {
+	public Label(double x, double y, int width, int height, String text, Color color) {
 		super(x, y, width, height, "", "");
 		this.color=color;
 		super.hardText=text;
@@ -25,9 +25,9 @@ public class Label extends TextBox {
 		else{
 			super.font = new Font("Serif",Font.PLAIN,24);
 			g.setColor(this.color);
-			g.drawString(super.hardText, 4+super.getX(), super.getY() + super.getHeight()/2 + fontHeight/4);
+			g.drawString(super.hardText, 4+(int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
 			g.setColor(Color.gray);
-			g.drawString(super.softText, hardWidth + 4 + super.getX(), super.getY() + super.getHeight()/2 + fontHeight/4);
+			g.drawString(super.softText, hardWidth + 4 + (int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
 		}
 	}
 }
