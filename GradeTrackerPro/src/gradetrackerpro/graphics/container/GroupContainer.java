@@ -33,6 +33,26 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		this.addButton = this.createNewAddButton("new-grade");
 		super.addComponent(this.addButton);
 	}
+	private void relocateElements(){
+		double y = super.getY() + super.getHeight()*4/24 + 16;
+		for(GradeDisplay display:this.gradeDisplays){
+			super.removeComponent(display);
+			display.setLocation(display.getX(),y);
+			super.addComponent(display);
+			y += display.getHeight() + 8;
+		}
+		if(this.createGrade!=null){
+			super.removeComponent(this.createGrade);
+			this.createGrade.setLocation(this.createGrade.getX(),y);
+			super.addComponent(this.createGrade);
+			y += this.createGrade.getHeight() + 8;
+		}
+		else{
+			super.removeComponent(this.addButton);
+			this.addButton=this.createNewAddButton("new-grade");
+			super.addComponent(this.addButton);
+		}
+	}
 	public GradeGrouping getGroup(){
 		return this.group;
 	}
@@ -64,6 +84,8 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 				this.addButton.mouseAction(x,y,event);
 			if(this.createGrade!=null)
 				this.createGrade.ping(title,data);
+			for(int n=this.gradeDisplays.size()-1;n>=0;n--)
+				this.gradeDisplays.get(n).ping(title, data);
 			super.ping(title, data);
 		}
 		else if(title.equals("key-data")){
@@ -109,7 +131,22 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			super.pushData("update", null);
 		}
 		else if(title.equals("remove-grade")){
-			System.out.println("REMOVE");
+			GradeDisplay display = null;
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
+			for(GradeDisplay d:this.gradeDisplays){
+				if(d.getX()==x&&(int)d.getY()==y){
+					display = d;
+					break;
+				}
+			}
+			this.group.removeGrade(display.getGrade());
+			super.removeComponent(display);
+			this.removeReceiver(display);
+			this.gradeDisplays.remove(display);
+			this.relocateElements();
+			this.updateTotalGrade();
+			super.ping("update",null);
 		}
 	}
 	@Override

@@ -19,10 +19,14 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 		super(x, y, width, height);
 		this.grade=grade;
 		this.display = new Label(x,y,width-32,height,this.grade.getName()+": "+this.grade.getEarned()+"/"+this.grade.getTotal()+" "+this.grade.getPercentEarned()+"%",Color.black);
-		this.cancel = new ButtonCancel(this.display.getX()+this.display.getWidth(),super.getY()+6,20,20,4);
+		this.cancel = new ButtonCancel(this.display.getX()+this.display.getWidth(),super.getY()+6,20,20,2);
 		super.addComponent(this.cancel);
 		cancel.addReceiver(this);
 		super.addComponent(display);
+	}
+	
+	public Grade getGrade(){
+		return this.grade;
 	}
 	
 	@Override
