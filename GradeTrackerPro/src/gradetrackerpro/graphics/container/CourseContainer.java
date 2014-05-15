@@ -145,8 +145,10 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			super.ping(title,data);
 	}
 	public void render(Graphics g){
+		g.setClip((int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight());
 		super.render(g);
 		g.setColor(Color.black);
-		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth(), super.getHeight());
+		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth()-1, super.getHeight()-1);
+		g.setClip(0,0,250,400);
 	}
 }

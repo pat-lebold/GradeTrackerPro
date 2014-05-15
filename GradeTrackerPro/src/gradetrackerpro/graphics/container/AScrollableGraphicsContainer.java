@@ -39,13 +39,11 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 		super.addComponent(component);
 		this.reevaluateRealHeight();
 		this.setupScrollBar();
-		this.updateComponents(0);
 	}
 	public void removeComponent(AGraphicsEntity component){
 		super.removeComponent(component);
 		this.reevaluateRealHeight();
 		this.setupScrollBar();
-		this.updateComponents(0);
 	}
 	public int getMin(){
 		ArrayList<AGraphicsEntity> components = super.pullComponents();
@@ -103,12 +101,12 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 	private void updateComponents(double dy){
 		for(AGraphicsEntity entity: super.pullComponents()){
 			entity.setLocation(entity.getX(),entity.getY()+dy);
-			if(entity.getY()>=super.getY()&&entity.getY()+entity.getHeight()<=super.getY()+super.getHeight()){
-				entity.setVisibility(true);
-			}
-			else{
+			if(entity.getY()>=super.getY()+super.getHeight())
 				entity.setVisibility(false);
-			}
+			else if(entity.getY()+entity.getHeight()<=super.getY())
+				entity.setVisibility(false);
+			else
+				entity.setVisibility(true);
 		}
 		super.pushData("update", null);
 	}

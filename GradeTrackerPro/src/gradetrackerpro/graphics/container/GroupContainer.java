@@ -44,7 +44,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	}
 	private void addGradeDisplay(Grade grade){
 		int y = super.realHeight + super.getMin() - (int)super.getY();
-		GradeDisplay display = new GradeDisplay(super.getX()+8,y+super.getY()+4,super.getWidth()-16-16,32, grade);
+		GradeDisplay display = new GradeDisplay(super.getX()+8,y+super.getY()+4,super.getWidth()-32,32, grade);
 		super.addComponent(display);
 		display.addReceiver(this);
 		this.gradeDisplays.add(display);
@@ -108,6 +108,9 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			super.addComponent(this.addButton);
 			super.pushData("update", null);
 		}
+		else if(title.equals("remove-grade")){
+			System.out.println("REMOVE");
+		}
 	}
 	@Override
 	public void setLocation(double x, double y){
@@ -125,8 +128,16 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		return this.percent;
 	}
 	public void render(Graphics g){
+		int y = (int)super.getY();
+		int height = super.getHeight();
+		if(y<48)
+			y = 48;
+		if(super.getY()+super.getHeight()>344)
+			height = 344-(int)super.getY();
+		g.setClip(0,y,250,height);
 		super.render(g);
 		g.setColor(Color.black);
-		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth(), super.getHeight());
+		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth()-1, super.getHeight()-1);
+		g.setClip(0,48,250,296);
 	}
 }

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import gradetrackerpro.course.Grade;
+import gradetrackerpro.graphics.buttons.ButtonCancel;
 import gradetrackerpro.graphics.container.AGraphicsContainer;
 import gradetrackerpro.graphics.text.Label;
 import gradetrackerpro.transmission.IReceiver;
@@ -12,11 +13,15 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 
 	private Grade grade;
 	private Label display;
+	private ButtonCancel cancel;
 	
 	public GradeDisplay(double x, double y, int width, int height, Grade grade) {
 		super(x, y, width, height);
 		this.grade=grade;
-		this.display = new Label(x,y,width,height,this.grade.getName()+": "+this.grade.getEarned()+"/"+this.grade.getTotal()+" "+this.grade.getPercentEarned()+"%",Color.black);
+		this.display = new Label(x,y,width-32,height,this.grade.getName()+": "+this.grade.getEarned()+"/"+this.grade.getTotal()+" "+this.grade.getPercentEarned()+"%",Color.black);
+		this.cancel = new ButtonCancel(this.display.getX()+this.display.getWidth(),super.getY()+6,20,20,4);
+		super.addComponent(this.cancel);
+		cancel.addReceiver(this);
 		super.addComponent(display);
 	}
 	
@@ -24,6 +29,8 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 	public void setLocation(double x, double y){
 		super.setLocation(x,y);
 		this.display.setLocation(x,y);
+		double dy = y-this.cancel.getY();
+		this.cancel.setLocation(this.cancel.getX(),this.cancel.getY()+dy+6);
 	}
 	
 	@Override
@@ -37,7 +44,16 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 
 	@Override
 	public void ping(String title, String[] data) {
-		// TODO Auto-generated method stub
+		if(title.equals("mouse-data")){
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
+			int event = Integer.parseInt(data[2]);
+			this.cancel.mouseAction(x,y,event);
+		}
+		else if(title.equals("cancel")){
+			String[] pushdata = {""+super.getX(),""+super.getY()};
+			super.pushData("remove-grade", pushdata);
+		}
 		
 	}
 
