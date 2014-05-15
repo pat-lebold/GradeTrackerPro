@@ -47,14 +47,26 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 		this.setupScrollBar();
 		this.updateComponents(0);
 	}
+	public int getMin(){
+		ArrayList<AGraphicsEntity> components = super.pullComponents();
+		double min = Double.MAX_VALUE;
+		for(AGraphicsEntity component:components){
+			if(min>component.getY())
+				min = component.getY();
+		}
+		return (int)min;
+	}
 	private void reevaluateRealHeight(){
 		ArrayList<AGraphicsEntity> components = super.pullComponents();
-		double max = 0;
+		double min = Double.MAX_VALUE;
+		double max = Double.MIN_VALUE;
 		for(AGraphicsEntity component:components){
+			if(min>component.getY())
+				min = component.getY();
 			if(max<component.getY()+component.getHeight())
 				max = component.getY()+component.getHeight();
 		}
-		this.realHeight = (int)(max - this.getY());
+		this.realHeight = (int)(max - min)+8;
 	}
 	private void setupScrollBar(){
 		double y_diff = (this.slideY - super.getY()) * this.slideDensity;

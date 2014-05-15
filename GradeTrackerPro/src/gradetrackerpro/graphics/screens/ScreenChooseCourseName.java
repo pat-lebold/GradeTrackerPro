@@ -8,11 +8,10 @@ import gradetrackerpro.graphics.text.TextBox;
 import gradetrackerpro.transmission.IReceiver;
 import gradetrackerpro.transmission.ITrigger;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 @SuppressWarnings("serial")
@@ -23,7 +22,11 @@ public class ScreenChooseCourseName extends JPanel implements IReceiver, ITrigge
 	private AColorButton goButton;
 	private AColorButton homeButton;
 	private String courseName;
-	public ScreenChooseCourseName(){
+	private BufferedImage background;
+	private BufferedImage header;
+	public ScreenChooseCourseName(BufferedImage background, BufferedImage header){
+		this.background=background;
+		this.header=header;
 		this.setBackground(ProgramManager.BACKGROUND_COLOR);
 		this.courseName = "Course Name";
 		this.receivers = new ArrayList<IReceiver>();
@@ -76,25 +79,14 @@ public class ScreenChooseCourseName extends JPanel implements IReceiver, ITrigge
 	}
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
+	    g.drawImage(this.background,0,0,null);
+	    g.drawImage(this.header,8,8,234,28,null);
 		g.setColor(Color.black);
 		g.drawRect(0,0,this.getWidth()-1,this.getHeight()-1);
-		drawTitle(g);
 		this.nameTextBox.render(g);
 		this.goButton.render(g);
 		this.exitButton.render(g);
 		this.homeButton.render(g);
-	}
-	private void drawTitle(Graphics g){
-		g.setColor(new Color(0,0,0,25));
-		g.fillRect(0,0,this.getWidth(),40);
-		g.setColor(Color.black);
-		g.drawLine(0,40,this.getWidth(),40);
-		g.setFont(new Font("Serif",Font.PLAIN,24));
-		FontMetrics metrics = g.getFontMetrics();
-		int width = metrics.stringWidth("GradeTrackerPro");
-		int height = metrics.getHeight();
-		g.setColor(Color.black);
-		g.drawString("GradeTrackerPro",this.getWidth()/2-width/2,20+height/4);
 	}
 	private class ScreenMouseHandler extends MouseAdapter{
 		public void mouseMoved(MouseEvent event){

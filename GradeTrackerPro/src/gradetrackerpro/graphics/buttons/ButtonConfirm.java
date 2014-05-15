@@ -10,8 +10,8 @@ public class ButtonConfirm extends ASizeChangingButton{
 	}
 	public void render(Graphics g){
 		g.setColor(Color.green);
-		g.fillOval((int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight());
+		g.fillOval((int)super.getX(),(int)super.getY(),super.getWidth()-1,super.getHeight()-1);
 		g.setColor(Color.black);
-		g.drawOval((int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight());
+		g.drawOval((int)super.getX(),(int)super.getY(),super.getWidth()-1,super.getHeight()-1);
 	}
 }

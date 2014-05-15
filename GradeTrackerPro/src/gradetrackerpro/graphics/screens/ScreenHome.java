@@ -8,11 +8,11 @@ import gradetrackerpro.transmission.IReceiver;
 import gradetrackerpro.transmission.ITrigger;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JPanel;
 import java.util.ArrayList;
 @SuppressWarnings("serial")
@@ -21,14 +21,18 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
   private IButton newCourseButton;
   private IButton loadCourseButton;
   private IButton exitButton;
-  public ScreenHome(){
+  private BufferedImage background;
+  private BufferedImage header;
+  public ScreenHome(BufferedImage background,BufferedImage header){
     this.setBackground(ProgramManager.BACKGROUND_COLOR);
+    this.background=background;
+    this.header=header;
     this.receivers=new ArrayList<IReceiver>();
-    this.newCourseButton=new ButtonNewCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*4/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+    this.newCourseButton=new ButtonNewCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*6/24,ProgramManager.SCREEN_WIDTH*2/3,40);
     this.newCourseButton.addReceiver(this);
-    this.loadCourseButton=new ButtonLoadCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*7/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+    this.loadCourseButton=new ButtonLoadCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*9/24,ProgramManager.SCREEN_WIDTH*2/3,40);
     this.loadCourseButton.addReceiver(this);
-    this.exitButton=new ButtonExit(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*10/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+    this.exitButton=new ButtonExit(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*12/24,ProgramManager.SCREEN_WIDTH*2/3,40);
     this.exitButton.addReceiver(this);
     ScreenMouseHandler mouseHandler = new ScreenMouseHandler();
     this.addMouseListener(mouseHandler);
@@ -55,29 +59,21 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
       this.exitButton.mouseAction(x,y,event);
       pushData("update",null);
     }
+    else if(title.equals("key-data")){
+    	//do nothing
+    }
     else
       pushData(title,data);
   }
   public void paintComponent(Graphics g){
     super.paintComponent(g);
+    g.drawImage(this.background,0,0,null);
+    g.drawImage(this.header,8,8,234,28,null);
     g.setColor(Color.black);
     g.drawRect(0,0,this.getWidth()-1,this.getHeight()-1);
-    drawTitle(g);
     this.newCourseButton.render(g);
     this.loadCourseButton.render(g);
     this.exitButton.render(g);
-  }
-  private void drawTitle(Graphics g){
-    g.setColor(new Color(0,0,0,25));
-    g.fillRect(0,0,this.getWidth(),40);
-	g.setColor(Color.black);
-    g.drawLine(0,40,this.getWidth(),40);
-    g.setFont(new Font("Serif",Font.PLAIN,24));
-    FontMetrics metrics = g.getFontMetrics();
-    int width = metrics.stringWidth("GradeTrackerPro");
-    int height = metrics.getHeight();
-    g.setColor(Color.black);
-    g.drawString("GradeTrackerPro",this.getWidth()/2-width/2,20+height/4);
   }
   private class ScreenMouseHandler extends MouseAdapter{
     public void mouseMoved(MouseEvent event){

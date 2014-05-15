@@ -37,14 +37,14 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		return this.group;
 	}
 	private ButtonAdd createNewAddButton(String message){
-		int buttonY = super.realHeight;
+		int buttonY = super.realHeight + super.getMin() - (int)super.getY();
 		ButtonAdd button = new ButtonAdd(super.getX()+8,buttonY+super.getY(),32,32,message);
 		button.addReceiver(this);
 		return button;
 	}
 	private void addGradeDisplay(Grade grade){
-		int y = super.realHeight - 4;
-		GradeDisplay display = new GradeDisplay(super.getX()+8,y+super.getY(),super.getWidth()-16-16,32, grade);
+		int y = super.realHeight + super.getMin() - (int)super.getY();
+		GradeDisplay display = new GradeDisplay(super.getX()+8,y+super.getY()+4,super.getWidth()-16-16,32, grade);
 		super.addComponent(display);
 		display.addReceiver(this);
 		this.gradeDisplays.add(display);
@@ -79,9 +79,9 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			this.createGrade = new GradeCreationWidget(super.getX()+8,this.addButton.getY(),super.getWidth()-24-super.slideWidth,40);
 			this.createGrade.addReceiver(this);
 			this.addReceiver(createGrade);
-			super.addComponent(this.createGrade);
 			this.addButton.setVisibility(false);
 			super.removeComponent(this.addButton);
+			super.addComponent(this.createGrade);
 			super.ping("update", null);
 		}
 		else if(title.equals("remove-widget")){

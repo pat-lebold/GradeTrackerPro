@@ -1,10 +1,9 @@
 package gradetrackerpro.graphics.screens;
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import gradetrackerpro.ProgramManager;
 import gradetrackerpro.course.Course;
@@ -22,7 +21,12 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 	private CourseContainer courseContainer;
 	private AColorButton exitButton;
 	private AColorButton homeButton;
-	public ScreenCourse(Course course){
+	@SuppressWarnings("unused")
+	private BufferedImage background;
+	private BufferedImage header;
+	public ScreenCourse(Course course,BufferedImage background,BufferedImage header){
+		this.background=background;
+		this.header=header;
 		this.setBackground(ProgramManager.BACKGROUND_COLOR);
 		this.receivers = new ArrayList<IReceiver>();
 		this.course = course;
@@ -65,24 +69,13 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 	}
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-		this.drawTitle(g);
+	    //g.drawImage(this.background,0,0,null);
+	    g.drawImage(this.header,8,8,234,28,null);
 		this.courseContainer.render(g);
 		this.exitButton.render(g);
 		this.homeButton.render(g);
 		g.setColor(Color.black);
 		g.drawRect(0, 0, super.getWidth()-1, super.getHeight()-1);
-	}
-	private void drawTitle(Graphics g){
-		g.setColor(new Color(0,0,0,25));
-		g.fillRect(0,0,this.getWidth(),40);
-		g.setColor(Color.black);
-		g.drawLine(0,40,this.getWidth(),40);
-		g.setFont(new Font("Serif",Font.PLAIN,24));
-		FontMetrics metrics = g.getFontMetrics();
-		int width = metrics.stringWidth("GradeTrackerPro");
-		int height = metrics.getHeight();
-		g.setColor(Color.black);
-		g.drawString("GradeTrackerPro",this.getWidth()/2-width/2,20+height/4);
 	}
 	private class ScreenMouseHandler extends MouseAdapter{
 		public void mouseMoved(MouseEvent event){

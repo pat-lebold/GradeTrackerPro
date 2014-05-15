@@ -28,7 +28,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 		this.groups = new ArrayList<GroupContainer>();
 	}
 	private ButtonAdd createNewAddButton(String message){
-		int buttonY = super.realHeight;
+		int buttonY = super.realHeight + super.getMin() - (int)super.getY();
 		ButtonAdd button = new ButtonAdd(super.getX()+8,buttonY+super.getY(),40,40,message);
 		button.addReceiver(this);
 		return button;
@@ -62,7 +62,8 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			int x = (int)Double.parseDouble(data[0]);
 			int y = (int)Double.parseDouble(data[1]);
 			int event = Integer.parseInt(data[2]);
-			this.addButton.mouseAction(x,y,event);
+			if(addButton.getVisibility())
+				this.addButton.mouseAction(x,y,event);
 			if(this.createGroup!=null)
 				this.createGroup.ping(title, data);
 			for(int n=this.groups.size()-1;n>=0;n--)
@@ -84,6 +85,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			this.addReceiver(createGroup);
 			super.addComponent(this.createGroup);
 			super.removeComponent(this.addButton);
+			this.addButton.setVisibility(false);
 			super.ping("update", null);
 		}
 		else if(title.equals("remove-widget")){
@@ -123,7 +125,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			int y = (int)Double.parseDouble(data[1]);
 			int percent = Integer.parseInt(data[2]);
 			for(GroupContainer g:this.groups){
-				if(g.getX()==x&&g.getY()==y&&g.getPercent()==percent){
+				if(g.getX()==x&&(int)g.getY()==y&&g.getPercent()==percent){
 					group = g;
 					break;
 				}
