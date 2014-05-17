@@ -28,11 +28,11 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
     this.background=background;
     this.header=header;
     this.receivers=new ArrayList<IReceiver>();
-    this.newCourseButton=new ButtonNewCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*6/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+    this.newCourseButton=new ButtonNewCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*4/24,ProgramManager.SCREEN_WIDTH*2/3,40);
     this.newCourseButton.addReceiver(this);
-    this.loadCourseButton=new ButtonLoadCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*9/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+    this.loadCourseButton=new ButtonLoadCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*7/24,ProgramManager.SCREEN_WIDTH*2/3,40);
     this.loadCourseButton.addReceiver(this);
-    this.exitButton=new ButtonExit(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*12/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+    this.exitButton=new ButtonExit(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*10/24,ProgramManager.SCREEN_WIDTH*2/3,40);
     this.exitButton.addReceiver(this);
     ScreenMouseHandler mouseHandler = new ScreenMouseHandler();
     this.addMouseListener(mouseHandler);
@@ -68,7 +68,7 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
   public void paintComponent(Graphics g){
     super.paintComponent(g);
     g.drawImage(this.background,0,0,null);
-    g.drawImage(this.header,8,8,234,28,null);
+    g.drawImage(this.header,0,0,250,60,null);
     g.setColor(Color.black);
     g.drawRect(0,0,this.getWidth()-1,this.getHeight()-1);
     this.newCourseButton.render(g);

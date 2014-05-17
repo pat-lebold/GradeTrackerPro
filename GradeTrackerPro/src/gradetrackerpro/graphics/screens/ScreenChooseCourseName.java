@@ -30,7 +30,7 @@ public class ScreenChooseCourseName extends JPanel implements IReceiver, ITrigge
 		this.setBackground(ProgramManager.BACKGROUND_COLOR);
 		this.courseName = "Course Name";
 		this.receivers = new ArrayList<IReceiver>();
-		this.nameTextBox = new TextBox(8,ProgramManager.SCREEN_HEIGHT/6,ProgramManager.SCREEN_WIDTH*4/6,ProgramManager.SCREEN_HEIGHT*2/24,"Course Name","name-box");
+		this.nameTextBox = new TextBox(16,ProgramManager.SCREEN_HEIGHT/6,ProgramManager.SCREEN_WIDTH*4/6,ProgramManager.SCREEN_HEIGHT*2/24,"Course Name","name-box");
 		this.nameTextBox.addReceiver(this);
 		this.goButton = new ButtonGo(this.nameTextBox.getX()+this.nameTextBox.getWidth()+8,ProgramManager.SCREEN_HEIGHT/6,ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*2/24);
 		this.goButton.addReceiver(this);
@@ -80,7 +80,7 @@ public class ScreenChooseCourseName extends JPanel implements IReceiver, ITrigge
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 	    g.drawImage(this.background,0,0,null);
-	    g.drawImage(this.header,8,8,234,28,null);
+	    g.drawImage(this.header,0,0,250,60,null);
 		g.setColor(Color.black);
 		g.drawRect(0,0,this.getWidth()-1,this.getHeight()-1);
 		this.nameTextBox.render(g);

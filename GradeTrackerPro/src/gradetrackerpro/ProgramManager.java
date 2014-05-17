@@ -34,7 +34,7 @@ public class ProgramManager implements IReceiver{
 		this.background = new BufferedImage(250,400,BufferedImage.TYPE_INT_ARGB);
 		this.paintBackground(this.background.getGraphics());
 		try {
-			this.header = ImageIO.read(new File("header.gif"));
+			this.header = ImageIO.read(new File("header.png"));
 		} catch (IOException e) {
 			System.out.println("NOT FOUND");
 			this.header = new BufferedImage(250,200,BufferedImage.TYPE_INT_ARGB);
@@ -48,16 +48,15 @@ public class ProgramManager implements IReceiver{
 		this.frame.addKeyListener(keyboard);
 	}
 	private void paintBackground(Graphics g){
-	    for(int n=0;n<Math.random()*2+3;n++){
-		    g.setColor(new Color(0,0,0,(int)(120*Math.random())+60));
-	    	double x = Math.random()*25+225;
-	    	g.drawLine((int)x, 0, (int)x, 400);
-	    }
-	    for(int n=0;n<Math.random()*5+3;n++){
-		    g.setColor(new Color(0,0,200,(int)(120*Math.random())+60));
-	    	double y = Math.random()*150+250;
-	    	g.drawLine(0,(int)y,250,(int)y);
-	    }
+		double rand = Math.random()*3+4;
+		for(int n=0;n<rand;n++){
+			int width = (int)(Math.random()*15+20);
+			int x = (int)(Math.random()*(250-width));
+			int y = (int)(Math.random()*(175-width)+225);
+			int alpha = 75+(int)(Math.random()*125);
+			g.setColor(new Color(255,127,39,alpha));
+			g.fillRect(x, y, width, width);
+		}
 	}
 	public void begin(){
 		this.frame.setVisible(true);

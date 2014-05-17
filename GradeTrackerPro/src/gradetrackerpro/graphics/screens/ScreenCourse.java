@@ -30,11 +30,11 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 		this.setBackground(ProgramManager.BACKGROUND_COLOR);
 		this.receivers = new ArrayList<IReceiver>();
 		this.course = course;
-		this.courseContainer = new CourseContainer(8,48,ProgramManager.SCREEN_WIDTH-16,ProgramManager.SCREEN_HEIGHT-104,new Color(0,0,0,50),this.course);
+		this.courseContainer = new CourseContainer(8,65,ProgramManager.SCREEN_WIDTH-16,ProgramManager.SCREEN_HEIGHT-121,new Color(0,0,0,50),this.course);
 		this.courseContainer.addReceiver(this);
-		this.homeButton = new ButtonHome(ProgramManager.SCREEN_WIDTH/30,this.courseContainer.getX()+this.courseContainer.getHeight()+56,ProgramManager.SCREEN_WIDTH*13/30,ProgramManager.SCREEN_HEIGHT*2/24);
+		this.homeButton = new ButtonHome(ProgramManager.SCREEN_WIDTH/30,this.courseContainer.getY()+this.courseContainer.getHeight()+8,ProgramManager.SCREEN_WIDTH*13/30,ProgramManager.SCREEN_HEIGHT*2/24);
 		this.homeButton.addReceiver(this);
-		this.exitButton = new ButtonExit(ProgramManager.SCREEN_WIDTH*16/30,this.courseContainer.getX()+this.courseContainer.getHeight()+56,ProgramManager.SCREEN_WIDTH*13/30,ProgramManager.SCREEN_HEIGHT*2/24);
+		this.exitButton = new ButtonExit(ProgramManager.SCREEN_WIDTH*16/30,this.courseContainer.getY()+this.courseContainer.getHeight()+8,ProgramManager.SCREEN_WIDTH*13/30,ProgramManager.SCREEN_HEIGHT*2/24);
 		this.exitButton.addReceiver(this);
 		ScreenMouseHandler mouseHandler = new ScreenMouseHandler();
 		this.addMouseListener(mouseHandler);
@@ -69,8 +69,7 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 	}
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
-	    //g.drawImage(this.background,0,0,null);
-	    g.drawImage(this.header,8,8,234,28,null);
+	    g.drawImage(this.header,0,0,250,60,null);
 		this.courseContainer.render(g);
 		this.exitButton.render(g);
 		this.homeButton.render(g);

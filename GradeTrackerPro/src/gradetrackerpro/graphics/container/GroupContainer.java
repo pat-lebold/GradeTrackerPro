@@ -27,7 +27,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		this.percent=percent;
 		this.title = new Label(super.getX()+8,super.getY()+8,super.getWidth()/2,super.getHeight()*3/24,this.percent+"%",Color.black);
 		super.addComponent(this.title);
-		this.cancelButton = new ButtonCancel(super.getX()+super.getWidth()-36-super.getHeight()*4/24,super.getY()+8,super.getHeight()*4/24,super.getHeight()*4/24,super.getHeight()/48);
+		this.cancelButton = new ButtonCancel(super.getX()+super.getWidth()-36-super.getHeight()*4/24,super.getY()+8,super.getHeight()*4/24,super.getHeight()*4/24,super.getHeight()/65);
 		this.cancelButton.addReceiver(this);
 		super.addComponent(this.cancelButton);
 		this.addButton = this.createNewAddButton("new-grade");
@@ -167,14 +167,14 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	public void render(Graphics g){
 		int y = (int)super.getY();
 		int height = super.getHeight();
-		if(y<48)
-			y = 48;
+		if(y<65)
+			y = 65;
 		if(super.getY()+super.getHeight()>344)
 			height = 344-(int)super.getY();
 		g.setClip(0,y,250,height);
 		super.render(g);
 		g.setColor(Color.black);
 		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth()-1, super.getHeight()-1);
-		g.setClip(0,48,250,296);
+		g.setClip(0,65,250,279);
 	}
 }
