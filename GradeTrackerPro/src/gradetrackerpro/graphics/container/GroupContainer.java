@@ -1,7 +1,6 @@
 package gradetrackerpro.graphics.container;
 import gradetrackerpro.course.Grade;
 import gradetrackerpro.course.GradeGrouping;
-import gradetrackerpro.graphics.AGraphicsEntity;
 import gradetrackerpro.graphics.GradeCreationWidget;
 import gradetrackerpro.graphics.GradeDisplay;
 import gradetrackerpro.graphics.buttons.AColorButton;
