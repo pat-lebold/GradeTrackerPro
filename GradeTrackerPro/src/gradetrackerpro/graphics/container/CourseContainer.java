@@ -35,6 +35,8 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 	}
 	private void relocateElements(){
 		double y = super.getY() + super.getHeight()*3/24 + 8;
+		double dy = super.getY() - super.getMin();
+		y -= dy;
 		for(GroupContainer group:this.groups){
 			super.removeComponent(group);
 			group.setLocation(group.getX(),y);
@@ -52,6 +54,8 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			this.addButton=this.createNewAddButton("new-group");
 			super.addComponent(this.addButton);
 		}
+		super.reevaluateRealHeight();
+		super.updateComponents(0);
 	}
 	public void ping(String title, String[] data){
 		if(title.equals("mouse-data")){

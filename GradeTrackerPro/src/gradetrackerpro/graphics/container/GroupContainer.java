@@ -1,6 +1,7 @@
 package gradetrackerpro.graphics.container;
 import gradetrackerpro.course.Grade;
 import gradetrackerpro.course.GradeGrouping;
+import gradetrackerpro.graphics.AGraphicsEntity;
 import gradetrackerpro.graphics.GradeCreationWidget;
 import gradetrackerpro.graphics.GradeDisplay;
 import gradetrackerpro.graphics.buttons.AColorButton;
@@ -35,10 +36,10 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	}
 	private void relocateElements(){
 		double y = super.getY() + super.getHeight()*4/24 + 16;
+		double dy = super.getY() - super.getMin();
+		y -= dy;
 		for(GradeDisplay display:this.gradeDisplays){
-			super.removeComponent(display);
 			display.setLocation(display.getX(),y);
-			super.addComponent(display);
 			y += display.getHeight() + 8;
 		}
 		if(this.createGrade!=null){
@@ -52,6 +53,8 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			this.addButton=this.createNewAddButton("new-grade");
 			super.addComponent(this.addButton);
 		}
+		super.reevaluateRealHeight();
+		super.updateComponents(0);
 	}
 	public GradeGrouping getGroup(){
 		return this.group;

@@ -12,7 +12,7 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 	protected final int slideWidth = 16;
 	private int slideX;
 	private double slideHeight;
-	private double slideY;
+	protected double slideY;
 	private Color slideColor;
 	private double slideDensity;
 	//----------------------
@@ -54,7 +54,7 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 		}
 		return (int)min;
 	}
-	private void reevaluateRealHeight(){
+	protected void reevaluateRealHeight(){
 		ArrayList<AGraphicsEntity> components = super.pullComponents();
 		double min = Double.MAX_VALUE;
 		double max = Double.MIN_VALUE;
@@ -98,7 +98,7 @@ public abstract class AScrollableGraphicsContainer extends AGraphicsContainer im
 			this.updateComponents(-this.slideDensity);
 		}
 	}
-	private void updateComponents(double dy){
+	protected void updateComponents(double dy){
 		for(AGraphicsEntity entity: super.pullComponents()){
 			entity.setLocation(entity.getX(),entity.getY()+dy);
 			if(entity.getY()>=super.getY()+super.getHeight())
