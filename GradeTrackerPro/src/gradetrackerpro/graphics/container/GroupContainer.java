@@ -173,8 +173,8 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			height = 344-(int)super.getY();
 		g.setClip(0,y,250,height);
 		super.render(g);
-		g.setColor(Color.black);
-		g.drawRect((int)super.getX(), (int)super.getY(), super.getWidth()-1, super.getHeight()-1);
+		g.setColor(new Color(0,0,0,25));
+		g.fillRect((int)super.getX(), (int)super.getY(), super.getWidth()-1, super.getHeight()-1);
 		g.setClip(0,65,250,279);
 	}
 }

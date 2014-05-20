@@ -69,7 +69,7 @@ public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 			this.font = new Font("Serif",Font.PLAIN,24);
 			g.setColor(Color.black);
 			g.drawString(this.hardText, 4+(int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
-			g.setColor(Color.gray);
+			g.setColor(new Color(255,127,39,255));
 			g.drawString(this.softText, hardWidth + 4 + (int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
 		}
 	}

@@ -40,10 +40,8 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 	@Override
 	public void render(Graphics g) {
 		super.renderComponents(g);
-		g.setColor(new Color(0,0,0,25));
+		g.setColor(new Color(0,0,0,50));
 		g.fillRect((int)super.getX(),(int)super.getY(),super.getWidth()-1,super.getHeight()-1);
-		g.setColor(Color.black);
-		g.drawRect((int)super.getX(),(int)super.getY(),super.getWidth()-1,super.getHeight()-1);
 	}
 
 	@Override
