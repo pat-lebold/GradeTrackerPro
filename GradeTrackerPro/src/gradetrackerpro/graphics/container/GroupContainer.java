@@ -22,7 +22,6 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	public GroupContainer(double x, double y, int width, int height, Color slideColor, int percent, GradeGrouping group) {
 		super(x,y,width,height,slideColor,4);
 		this.group=group;
-		this.group.setPercent(percent);
 		this.gradeDisplays = new ArrayList<GradeDisplay>();
 		this.percent=percent;
 		this.title = new Label(super.getX()+8,super.getY()+8,super.getWidth()/2,super.getHeight()*3/24,this.percent+"%",Color.black);

@@ -1,11 +1,15 @@
 package gradetrackerpro.course;
 import java.util.ArrayList;
 public class GradeGrouping{
-  private Course master;
+  @SuppressWarnings("unused")
+private Course master;
   private ArrayList<Grade> grades;
   private int percentCounted;
   public GradeGrouping(Course master){
    this(master,new ArrayList<Grade>(),100);
+  }
+  public GradeGrouping(Course master, int percentCounted){
+	  this(master,new ArrayList<Grade>(),percentCounted);
   }
   public GradeGrouping(Course master, ArrayList<Grade> grades, int percentCounted){
     this.master=master;
@@ -30,15 +34,11 @@ public class GradeGrouping{
       total += grade.getEarned();
     return total;
   }
-  public void setPercent(int percentCounted){
-    int masterValue = this.master.getTotalPercentAccountedFor();
-    masterValue -= this.percentCounted;
-    masterValue += percentCounted;
-    this.master.setTotalPercentAccountedFor(masterValue);
-    this.percentCounted=percentCounted;
+  public int getPercentCounted(){
+	  return this.percentCounted;
   }
   public int getPercent(){
-    return this.getTotalPoints()==0?100:(int)((double)this.getTotalEarned()/this.getTotalPoints());
+    return this.getTotalPoints()==0?0:(int)((double)this.getTotalEarned()/this.getTotalPoints());
   }
   public double getValue(){
     double modifier = this.percentCounted/100.0;

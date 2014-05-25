@@ -105,7 +105,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			this.createGroup.setVisibility(false);
 
 			int percent = Integer.parseInt(data[0]);
-			GradeGrouping gradeGroup = new GradeGrouping(this.course);
+			GradeGrouping gradeGroup = new GradeGrouping(this.course,percent);
 			this.course.addGroup(gradeGroup);
 
 			double y = createGroup.getY();
@@ -149,6 +149,7 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			super.ping(title,data);
 	}
 	public void render(Graphics g){
+		System.out.println(this.course.getTotalPercentAccountedFor());
 		g.setClip((int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight());
 		super.render(g);
 		g.setColor(new Color(0,0,0,25));
