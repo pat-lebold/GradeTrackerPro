@@ -1,4 +1,5 @@
 package gradetrackerpro.course;
+import gradetrackerpro.transmission.DataManager;
 import gradetrackerpro.transmission.IReceiver;
 import gradetrackerpro.transmission.ITrigger;
 
@@ -16,6 +17,9 @@ public class Course implements ITrigger{
 		this.courseName=courseName;
 		this.totalPercentAccountedFor=totalPercentAccountedFor;
 		this.receivers = new ArrayList<IReceiver>();
+	}
+	public ArrayList<GradeGrouping> getGroups(){
+		return this.groups;
 	}
 	public void addGroup(){
 		this.groups.add(new GradeGrouping(this));

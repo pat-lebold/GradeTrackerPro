@@ -3,6 +3,8 @@ import gradetrackerpro.course.Course;
 import gradetrackerpro.graphics.screens.ScreenChooseCourseName;
 import gradetrackerpro.graphics.screens.ScreenCourse;
 import gradetrackerpro.graphics.screens.ScreenHome;
+import gradetrackerpro.graphics.screens.ScreenLoad;
+import gradetrackerpro.transmission.DataManager;
 import gradetrackerpro.transmission.IReceiver;
 
 import java.awt.Color;
@@ -19,12 +21,14 @@ public class ProgramManager implements IReceiver{
 	public static final Color BACKGROUND_COLOR = new Color(255,255,255);
 	public static final int SCREEN_WIDTH = 250;
 	public static final int SCREEN_HEIGHT = 400;
+	private boolean loaded;
 	private JFrame frame;
 	private ScreenHome home;
 	private Course course;
 	private BufferedImage background;
 	private BufferedImage header;
 	public ProgramManager(){
+		this.loaded=false;
 		this.frame = new JFrame("GradeTrackerPro v1.0");
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setSize(250,400);
@@ -64,9 +68,13 @@ public class ProgramManager implements IReceiver{
 	public void ping(String title, String[] data){
 		if(title.equals("update"))
 			frame.repaint();
-		else if(title.equals("exit"))
+		else if(title.equals("exit")){
+			DataManager.saveCourse(course);
 			frame.dispose();
+		}
 		else if(title.equals("home")){
+			this.loaded=false;
+			DataManager.saveCourse(course);
 			this.frame.getContentPane().removeAll();
 			this.home=new ScreenHome(this.background, this.header);
 			this.home.addReceiver(this);
@@ -86,6 +94,25 @@ public class ProgramManager implements IReceiver{
 		}
 		else if(title.equals("new-course-create")){
 			this.course = new Course(data[0]);
+			this.course.addReceiver(this);
+			this.frame.getContentPane().removeAll();
+			ScreenCourse screen = new ScreenCourse(this.course,this.background,this.header);
+			screen.addReceiver(this);
+			this.frame.getContentPane().add(screen);
+			this.frame.revalidate();
+		}
+		else if(title.equals("load-course-screen")){
+			this.frame.getContentPane().removeAll();
+			ScreenLoad screen = new ScreenLoad(this.header);
+			screen.addReceiver(this);
+			this.frame.getContentPane().add(screen);
+			this.frame.revalidate();
+		}
+		else if(title.equals("load-course")){
+			if(this.loaded)
+				return;
+			this.loaded=true;
+			this.course = DataManager.loadCourse(data[0]);
 			this.course.addReceiver(this);
 			this.frame.getContentPane().removeAll();
 			ScreenCourse screen = new ScreenCourse(this.course,this.background,this.header);

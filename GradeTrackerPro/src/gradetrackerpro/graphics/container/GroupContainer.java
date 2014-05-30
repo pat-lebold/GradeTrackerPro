@@ -32,7 +32,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		this.addButton = this.createNewAddButton("new-grade");
 		super.addComponent(this.addButton);
 	}
-	private void relocateElements(){
+	public void relocateElements(){
 		double y = super.getY() + super.getHeight()*4/24 + 16;
 		double dy = super.getY() - super.getMin();
 		y -= dy;
@@ -116,9 +116,23 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			super.addComponent(this.addButton);
 			super.ping("update",null);
 		}
+		else if(title.equals("create-grade-load")){
+			super.removeComponent(this.addButton);
+			String name = data[0];
+			int actual = Integer.parseInt(data[1]);
+			int total = Integer.parseInt(data[2]);
+			Grade grade = new Grade(name,actual,total);
+			this.group.addGrade(grade);
+			this.updateTotalGrade();
+			this.addGradeDisplay(grade);
+			this.addButton = createNewAddButton("new-grade");
+			super.addComponent(this.addButton);
+			super.pushData("update",null);
+		}
 		else if(title.equals("create-grade")){
 			super.removeComponent(this.createGrade);
-			this.createGrade.setVisibility(false);
+			if(this.createGrade!=null)
+				this.createGrade.setVisibility(false);
 			this.createGrade = null;
 			String name = data[0];
 			int actual = Integer.parseInt(data[1]);
@@ -177,5 +191,18 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		g.setColor(new Color(0,0,0,25));
 		g.fillRect((int)super.getX(), (int)super.getY(), super.getWidth()-1, super.getHeight()-1);
 		g.setClip(0,65,250,279);
+	}
+	public boolean equals(Object o){
+		if(!(o instanceof GroupContainer))
+			return false;
+		GroupContainer other = (GroupContainer)o;
+		if(this.gradeDisplays.size()!=other.gradeDisplays.size())
+			return false;
+		for(int n=0;n<this.gradeDisplays.size();n++)
+			if(!this.gradeDisplays.get(0).equals(other.gradeDisplays.get(0)))
+				return false;
+		if(this.group.getPercentCounted()!=other.group.getPercentCounted())
+			return false;
+		return true;		
 	}
 }

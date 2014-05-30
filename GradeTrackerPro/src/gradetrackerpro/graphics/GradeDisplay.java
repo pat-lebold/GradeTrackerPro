@@ -58,5 +58,18 @@ public class GradeDisplay extends AGraphicsContainer implements IReceiver{
 		}
 		
 	}
+	
+	public boolean equals(Object o){
+		if(!(o instanceof GradeDisplay))
+			return false;
+		GradeDisplay other = (GradeDisplay)o;
+		if(!other.grade.getName().equals(this.grade.getName()))
+			return false;
+		if(other.grade.getEarned()!=this.grade.getEarned())
+			return false;
+		if(other.grade.getTotal()!=this.grade.getTotal())
+			return false;
+		return true;
+	}
 
 }

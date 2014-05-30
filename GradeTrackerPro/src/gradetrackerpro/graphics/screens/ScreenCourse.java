@@ -7,10 +7,13 @@ import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import gradetrackerpro.ProgramManager;
 import gradetrackerpro.course.Course;
+import gradetrackerpro.course.Grade;
+import gradetrackerpro.course.GradeGrouping;
 import gradetrackerpro.graphics.buttons.AColorButton;
 import gradetrackerpro.graphics.buttons.ButtonExit;
 import gradetrackerpro.graphics.buttons.ButtonHome;
 import gradetrackerpro.graphics.container.CourseContainer;
+import gradetrackerpro.graphics.container.GroupContainer;
 import gradetrackerpro.transmission.IReceiver;
 import gradetrackerpro.transmission.ITrigger;
 import javax.swing.JPanel;
@@ -39,6 +42,29 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 		ScreenMouseHandler mouseHandler = new ScreenMouseHandler();
 		this.addMouseListener(mouseHandler);
 		this.addMouseMotionListener(mouseHandler);
+		this.loadCourseData();
+	}
+	private void loadCourseData(){
+		ArrayList<GradeGrouping> groupList = new ArrayList<GradeGrouping>();
+		for(GradeGrouping g:this.course.getGroups())
+			groupList.add(g);
+		for(int n=0;n<groupList.size();n++){
+			GradeGrouping group = this.course.getGroups().get(n);
+			int percentCounted = group.getPercentCounted();
+			String[] dataPercent = {""+percentCounted};
+			this.courseContainer.ping("create-group-load", dataPercent);
+			GroupContainer groupContainer = this.courseContainer.getGroupContainers().get(n);
+			for(int m=0;m<group.getGrades().size();m++){
+				Grade grade = group.getGrades().get(m);
+				String gradeName = grade.getName();
+				int earned = grade.getEarned();
+				int total = grade.getTotal();
+				String[] dataGrade = {gradeName,""+earned,""+total};
+				groupContainer.ping("create-grade-load", dataGrade);
+				//group.getGrades().remove(m);
+			}
+			//this.course.getGroups().remove(n);
+		}
 	}
 	public void addReceiver(IReceiver receiver){
 		this.receivers.add(receiver);

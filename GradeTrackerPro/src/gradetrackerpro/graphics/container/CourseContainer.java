@@ -33,7 +33,10 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 		button.addReceiver(this);
 		return button;
 	}
-	private void relocateElements(){
+	public ArrayList<GroupContainer> getGroupContainers(){
+		return this.groups;
+	}
+	public void relocateElements(){
 		double y = super.getY() + super.getHeight()*3/24 + 8;
 		double dy = super.getY() - super.getMin();
 		y -= dy;
@@ -100,9 +103,25 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			super.addComponent(this.addButton);
 			super.ping("update",null);
 		}
+		else if(title.equals("create-group-load")){
+			super.removeComponent(this.addButton);
+			int percent = Integer.parseInt(data[0]);
+			GradeGrouping gradeGroup = new GradeGrouping(this.course,percent);
+			this.course.addGroup(gradeGroup);
+			double y = this.addButton.getY();
+			GroupContainer newGroup = new GroupContainer(super.getX()+9,y,super.getWidth()-24-super.slideWidth,120,new Color(0,0,0,100),percent,gradeGroup);
+			super.addComponent(newGroup);
+			newGroup.addReceiver(this);
+			this.addReceiver(newGroup);
+			this.groups.add(newGroup);
+			this.addButton = this.createNewAddButton("new-group");
+			super.addComponent(this.addButton);
+			super.ping("update",null);
+		}
 		else if(title.equals("create-group")){
 			super.removeComponent(this.createGroup);
-			this.createGroup.setVisibility(false);
+			if(this.createGroup!=null)
+				this.createGroup.setVisibility(false);
 
 			int percent = Integer.parseInt(data[0]);
 			GradeGrouping gradeGroup = new GradeGrouping(this.course,percent);
@@ -134,7 +153,8 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 					break;
 				}
 			}
-			this.course.removeGroup(group.getGroup());
+			while(this.course.getGroups().contains(group.getGroup()))
+				this.course.removeGroup(group.getGroup());
 			super.removeComponent(group);
 			this.removeReceiver(group);
 			this.groups.remove(group);
@@ -149,7 +169,6 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			super.ping(title,data);
 	}
 	public void render(Graphics g){
-		System.out.println(this.course.getTotalPercentAccountedFor());
 		g.setClip((int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight());
 		super.render(g);
 		g.setColor(new Color(0,0,0,25));
