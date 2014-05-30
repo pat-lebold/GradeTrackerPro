@@ -110,6 +110,8 @@ public class ScreenCourse extends JPanel implements ITrigger, IReceiver{
 		public void mouseDragged(MouseEvent event){
 			String[] data = {""+event.getX(),""+event.getY(),""+MouseEvent.MOUSE_DRAGGED};
 			ping("mouse-data",data);
+			if(event.getY()<=60)
+				pushData("mouse-data",data);
 		}
 		public void mousePressed(MouseEvent event){
 			String[] data = {""+event.getX(),""+event.getY(),""+MouseEvent.MOUSE_PRESSED};

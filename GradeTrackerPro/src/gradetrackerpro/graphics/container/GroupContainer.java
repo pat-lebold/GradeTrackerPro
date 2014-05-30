@@ -99,8 +99,10 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 		}
 		else if(title.equals("add-new-grade")){
 			super.removeComponent(this.addButton);
+			System.out.println(this.addButton.getY());
 			this.createGrade = new GradeCreationWidget(super.getX()+8,this.addButton.getY(),super.getWidth()-24-super.slideWidth,40);
 			this.createGrade.addReceiver(this);
+			System.out.println(this.createGrade.getY());
 			this.addReceiver(createGrade);
 			this.addButton.setVisibility(false);
 			super.removeComponent(this.addButton);

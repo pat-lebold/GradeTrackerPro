@@ -18,7 +18,6 @@ public class DataManager {
 			Scanner in = new Scanner(file);
 			String data = in.nextLine();
 			in.close();
-			System.out.println(data);
 			String[] courseString = data.split("_");
 			Course course = new Course(courseString[0]);
 			if(courseString.length==1)
@@ -77,7 +76,6 @@ public class DataManager {
 		}
 		try {
 			PrintWriter writer = new PrintWriter(new File(course.getName() + ".cf"));
-			System.out.println("DATA: " + data);
 			writer.println(data);
 			writer.flush();
 			writer.close();

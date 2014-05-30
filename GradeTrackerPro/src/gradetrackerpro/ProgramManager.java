@@ -9,6 +9,7 @@ import gradetrackerpro.transmission.IReceiver;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -27,8 +28,12 @@ public class ProgramManager implements IReceiver{
 	private Course course;
 	private BufferedImage background;
 	private BufferedImage header;
+	private int lastX;
+	private int lastY;
 	public ProgramManager(){
 		this.loaded=false;
+		this.lastX=-1;
+		this.lastY=-1;
 		this.frame = new JFrame("GradeTrackerPro v1.0");
 		this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.frame.setSize(250,400);
@@ -57,7 +62,7 @@ public class ProgramManager implements IReceiver{
 			int width = (int)(Math.random()*15+20);
 			int x = (int)(Math.random()*(250-width));
 			int y = (int)(Math.random()*(175-width)+225);
-			int alpha = 75+(int)(Math.random()*125);
+			int alpha = 100+(int)(Math.random()*100);
 			g.setColor(new Color(255,127,39,alpha));
 			g.fillRect(x, y, width, width);
 		}
@@ -119,6 +124,24 @@ public class ProgramManager implements IReceiver{
 			screen.addReceiver(this);
 			this.frame.getContentPane().add(screen);
 			this.frame.revalidate();
+		}
+		else if(title.equals("mouse-data")){
+			int x = (int)Double.parseDouble(data[0]);
+			int y = (int)Double.parseDouble(data[1]);
+			if(this.lastX==-1&&this.lastY==-1){
+				this.lastX=x;
+				this.lastY=y;
+			}
+			else{
+				Point currentLocation = this.frame.getLocation();
+				int newX = (int)currentLocation.getX()+x-lastX;
+				if(newX<0)
+					newX=0;
+				int newY = (int)currentLocation.getY()+y-lastY;
+				if(newY<0)
+					newY=0;
+				this.frame.setLocation(newX,newY);
+			}
 		}
 	}
 	private class ScreenKeyHandler extends KeyAdapter{
