@@ -8,8 +8,10 @@ import gradetrackerpro.transmission.DataManager;
 import gradetrackerpro.transmission.IReceiver;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.Toolkit;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -135,11 +137,18 @@ public class ProgramManager implements IReceiver{
 			else{
 				Point currentLocation = this.frame.getLocation();
 				int newX = (int)currentLocation.getX()+x-lastX;
+				int newY = (int)currentLocation.getY()+y-lastY;
+				Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+				double width = screenSize.getWidth();
+				double height = screenSize.getHeight();
 				if(newX<0)
 					newX=0;
-				int newY = (int)currentLocation.getY()+y-lastY;
 				if(newY<0)
 					newY=0;
+				if(newX+this.frame.getWidth()>width)
+					newX=(int)width-this.frame.getWidth();
+				if(newY+this.frame.getHeight()>height)
+					newY=(int)height-this.frame.getHeight();
 				this.frame.setLocation(newX,newY);
 			}
 		}
