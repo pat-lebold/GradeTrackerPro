@@ -1,5 +1,4 @@
 package gradetrackerpro.course;
-import gradetrackerpro.transmission.DataManager;
 import gradetrackerpro.transmission.IReceiver;
 import gradetrackerpro.transmission.ITrigger;
 
@@ -17,6 +16,15 @@ public class Course implements ITrigger{
 		this.courseName=courseName;
 		this.totalPercentAccountedFor=totalPercentAccountedFor;
 		this.receivers = new ArrayList<IReceiver>();
+	}
+	public void removeDuplicates(){
+		ArrayList<GradeGrouping> visited = new ArrayList<GradeGrouping>();
+		for(int n=this.groups.size()-1;n>=0;n--){
+			if(visited.contains(this.groups.get(n)))
+				this.groups.remove(n);
+			else
+				visited.add(this.groups.get(n));
+		}
 	}
 	public ArrayList<GradeGrouping> getGroups(){
 		return this.groups;

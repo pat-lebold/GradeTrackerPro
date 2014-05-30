@@ -169,6 +169,8 @@ public class CourseContainer extends AScrollableGraphicsContainer{
 			super.ping(title,data);
 	}
 	public void render(Graphics g){
+		super.clearDuplicates();
+		this.course.removeDuplicates();
 		g.setClip((int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight());
 		super.render(g);
 		g.setColor(new Color(0,0,0,25));

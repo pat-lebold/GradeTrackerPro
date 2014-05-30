@@ -13,6 +13,14 @@ public abstract class AGraphicsContainer extends AGraphicsEntity implements ITri
 		this.components = new ArrayList<AGraphicsEntity>();
 		this.receivers = new ArrayList<IReceiver>();
 	}
+	public void clearDuplicates(){
+		ArrayList<AGraphicsEntity> visited = new ArrayList<AGraphicsEntity>();
+		for(int n=this.components.size()-1;n>=0;n--){
+			if(visited.contains(this.components.get(n)))
+				this.components.remove(n);
+			visited.add(this.components.get(n));
+		}
+	}
 	public void addComponent(AGraphicsEntity entity){
 		this.components.add(entity);
 	}

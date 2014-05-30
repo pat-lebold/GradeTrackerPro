@@ -55,7 +55,6 @@ public class DataManager {
 		String data = "";
 		data = data.concat(course.getName());
 		data = data.concat("_");
-		System.out.println(course.getGroups().size());
 		ArrayList<GradeGrouping> visited = new ArrayList<GradeGrouping>();
 		for(int n=0;n<course.getGroups().size();n++){
 			if(visited.contains(course.getGroups().get(n)))
@@ -85,7 +84,6 @@ public class DataManager {
 		} catch (FileNotFoundException e) {
 			System.out.println("Could not find file");
 		}
-		System.out.println(visited.size());
 	}
 
 	public static ArrayList<String> getCourseNames(){

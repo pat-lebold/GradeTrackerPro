@@ -42,4 +42,13 @@ public abstract class AGraphicsEntity implements IRenderable{
   public boolean getVisibility(){
     return this.visibility;
   }
+  public boolean equals(Object o){
+	  if(!(o instanceof AGraphicsEntity))
+		  return false;
+	  AGraphicsEntity other = (AGraphicsEntity)o;
+	  return (int)other.x==(int)this.x&&
+			  (int)other.y==(int)this.y&&
+			  (int)other.width==(int)this.width&&
+			  (int)other.height==(int)this.height;
+  }
 }

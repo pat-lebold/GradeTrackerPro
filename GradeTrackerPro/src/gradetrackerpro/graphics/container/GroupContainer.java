@@ -205,4 +205,7 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			return false;
 		return true;		
 	}
+	public String toString(){
+		return ""+this.group.getPercentCounted();
+	}
 }
