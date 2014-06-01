@@ -59,7 +59,13 @@ public class ProgramManager implements IReceiver{
 		this.frame.addKeyListener(keyboard);
 	}
 	private void paintBackground(Graphics g){
-		double rand = Math.random()*3+4;
+		g.setColor(new Color(255,128,39));
+		g.drawLine(ProgramManager.SCREEN_WIDTH/2, ProgramManager.SCREEN_HEIGHT-30,ProgramManager.SCREEN_WIDTH , ProgramManager.SCREEN_HEIGHT-30);
+		g.setColor(new Color(150,150,150));
+		g.drawLine(ProgramManager.SCREEN_WIDTH*2/3, ProgramManager.SCREEN_HEIGHT-20,ProgramManager.SCREEN_WIDTH , ProgramManager.SCREEN_HEIGHT-20);
+		g.setColor(new Color(0,0,0));
+		g.drawLine(ProgramManager.SCREEN_WIDTH*3/4, ProgramManager.SCREEN_HEIGHT-10,ProgramManager.SCREEN_WIDTH , ProgramManager.SCREEN_HEIGHT-10);
+		/*double rand = Math.random()*3+4;
 		for(int n=0;n<rand;n++){
 			int width = (int)(Math.random()*15+20);
 			int x = (int)(Math.random()*(250-width));
@@ -67,7 +73,7 @@ public class ProgramManager implements IReceiver{
 			int alpha = 100+(int)(Math.random()*100);
 			g.setColor(new Color(255,127,39,alpha));
 			g.fillRect(x, y, width, width);
-		}
+		}*/
 	}
 	public void begin(){
 		this.frame.setVisible(true);

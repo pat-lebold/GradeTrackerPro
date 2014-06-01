@@ -1,6 +1,7 @@
 package gradetrackerpro.graphics.screens;
 import gradetrackerpro.ProgramManager;
 import gradetrackerpro.graphics.buttons.ButtonExit;
+import gradetrackerpro.graphics.buttons.ButtonHelp;
 import gradetrackerpro.graphics.buttons.ButtonLoadCourse;
 import gradetrackerpro.graphics.buttons.ButtonNewCourse;
 import gradetrackerpro.graphics.buttons.IButton;
@@ -21,6 +22,7 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
 	private IButton newCourseButton;
 	private IButton loadCourseButton;
 	private IButton exitButton;
+	private IButton helpButton;
 	private BufferedImage background;
 	private BufferedImage header;
 	public ScreenHome(BufferedImage background,BufferedImage header){
@@ -32,7 +34,9 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
 		this.newCourseButton.addReceiver(this);
 		this.loadCourseButton=new ButtonLoadCourse(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*7/24,ProgramManager.SCREEN_WIDTH*2/3,40);
 		this.loadCourseButton.addReceiver(this);
-		this.exitButton=new ButtonExit(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*10/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+		this.helpButton=new ButtonHelp(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*10/24,ProgramManager.SCREEN_WIDTH*2/3,40);
+		this.helpButton.addReceiver(this);
+		this.exitButton=new ButtonExit(ProgramManager.SCREEN_WIDTH/6,ProgramManager.SCREEN_HEIGHT*13/24,ProgramManager.SCREEN_WIDTH*2/3,40);
 		this.exitButton.addReceiver(this);
 		ScreenMouseHandler mouseHandler = new ScreenMouseHandler();
 		this.addMouseListener(mouseHandler);
@@ -56,6 +60,7 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
 			int event = Integer.parseInt(data[2]);
 			this.newCourseButton.mouseAction(x,y,event);
 			this.loadCourseButton.mouseAction(x,y,event);
+			this.helpButton.mouseAction(x,y,event);
 			this.exitButton.mouseAction(x,y,event);
 			pushData("update",null);
 		}
@@ -73,6 +78,7 @@ public class ScreenHome extends JPanel implements ITrigger, IReceiver{
 		g.drawRect(0,0,this.getWidth()-1,this.getHeight()-1);
 		this.newCourseButton.render(g);
 		this.loadCourseButton.render(g);
+		this.helpButton.render(g);
 		this.exitButton.render(g);
 	}
 	private class ScreenMouseHandler extends MouseAdapter{
