@@ -15,7 +15,7 @@ public class ButtonCancel extends ASizeChangingButton{
 	}
 	public void render(Graphics g){
 		try{
-			BufferedImage image = ImageIO.read(new File("cancel.gif"));
+			BufferedImage image = ImageIO.read(new File("img/cancel.gif"));
 			g.drawImage(image,(int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight(),null);
 		}catch(IOException e){
 			g.setColor(Color.red);

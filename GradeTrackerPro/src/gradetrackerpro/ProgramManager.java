@@ -45,7 +45,7 @@ public class ProgramManager implements IReceiver{
 		this.background = new BufferedImage(250,400,BufferedImage.TYPE_INT_ARGB);
 		this.paintBackground(this.background.getGraphics());
 		try {
-			this.header = ImageIO.read(new File("header.png"));
+			this.header = ImageIO.read(new File("img/header.png"));
 		} catch (IOException e) {
 			System.out.println("NOT FOUND");
 			this.header = new BufferedImage(250,200,BufferedImage.TYPE_INT_ARGB);

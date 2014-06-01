@@ -15,12 +15,12 @@ public class ButtonConfirm extends ASizeChangingButton{
 	}
 	public void render(Graphics g){
 		try{
-			BufferedImage image = ImageIO.read(new File("accept.gif"));
+			BufferedImage image = ImageIO.read(new File("img/accept.gif"));
 			g.drawImage(image,(int)super.getX(),(int)super.getY(),super.getWidth(),super.getHeight(),null);
 		}catch(IOException e){
 			g.setColor(new Color(255,127,39,255));
-			g.fillRect((int)super.getX(),(int)super.getY()+super.getHeight()/2-super.getHeight()/8,super.getWidth(),super.getHeight()/4);
-			g.fillRect((int)super.getX()+super.getWidth()/2-super.getWidth()/8,(int)super.getY(),super.getWidth()/4,super.getHeight());
+			g.fillRect((int)super.getX(),(int)super.getY()+super.getHeight()/2-super.getHeight()/8+4,super.getWidth(),super.getHeight()/4);
+			g.fillRect((int)super.getX()+super.getWidth()/2-super.getWidth()/8,(int)super.getY()+4,super.getWidth()/4,super.getHeight());
 		}
 	}
 }
