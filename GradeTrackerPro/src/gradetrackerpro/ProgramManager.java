@@ -2,6 +2,7 @@ package gradetrackerpro;
 import gradetrackerpro.course.Course;
 import gradetrackerpro.graphics.screens.ScreenChooseCourseName;
 import gradetrackerpro.graphics.screens.ScreenCourse;
+import gradetrackerpro.graphics.screens.ScreenHelp;
 import gradetrackerpro.graphics.screens.ScreenHome;
 import gradetrackerpro.graphics.screens.ScreenLoad;
 import gradetrackerpro.transmission.DataManager;
@@ -129,6 +130,13 @@ public class ProgramManager implements IReceiver{
 			this.course.addReceiver(this);
 			this.frame.getContentPane().removeAll();
 			ScreenCourse screen = new ScreenCourse(this.course,this.background,this.header);
+			screen.addReceiver(this);
+			this.frame.getContentPane().add(screen);
+			this.frame.revalidate();
+		}
+		else if(title.equals("help")){
+			this.frame.getContentPane().removeAll();
+			ScreenHelp screen = new ScreenHelp(this.header);
 			screen.addReceiver(this);
 			this.frame.getContentPane().add(screen);
 			this.frame.revalidate();

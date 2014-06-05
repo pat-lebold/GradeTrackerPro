@@ -1,5 +1,6 @@
 package gradetrackerpro.transmission;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -11,6 +12,12 @@ import gradetrackerpro.course.Grade;
 import gradetrackerpro.course.GradeGrouping;
 
 public class DataManager {
+	
+	public static ArrayList<BufferedImage> pullTutorials(){
+		ArrayList<BufferedImage> tutorials = new ArrayList<BufferedImage>();
+		
+		return tutorials;
+	}
 
 	public static Course loadCourse(String courseName){
 		File file = new File(courseName+".cf");
