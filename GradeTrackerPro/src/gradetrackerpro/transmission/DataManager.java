@@ -3,9 +3,12 @@ package gradetrackerpro.transmission;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import javax.imageio.ImageIO;
 
 import gradetrackerpro.course.Course;
 import gradetrackerpro.course.Grade;
@@ -15,7 +18,16 @@ public class DataManager {
 	
 	public static ArrayList<BufferedImage> pullTutorials(){
 		ArrayList<BufferedImage> tutorials = new ArrayList<BufferedImage>();
-		
+		File file = new File("img\\tutorials");
+		int numTutorials = file.listFiles().length;
+		for(int n=1;n<=numTutorials;n++){
+			try {
+				BufferedImage tutorialImage = ImageIO.read(new File("img\\tutorials\\tutorial_"+n+".png"));
+				tutorials.add(tutorialImage);
+			} catch (IOException e) {
+				//Do nothing
+			}
+		}
 		return tutorials;
 	}
 
