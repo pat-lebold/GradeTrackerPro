@@ -35,6 +35,7 @@ public class ScreenHelp extends JPanel implements ITrigger, IReceiver {
 		this.header=header;
 		this.receivers = new ArrayList<IReceiver>();
 		this.tutorials = DataManager.pullTutorials();
+		System.out.println(tutorials.size());
 		this.index = 0;
 		this.setBackground(ProgramManager.BACKGROUND_COLOR);
 		this.homeButton = new ButtonHome(ProgramManager.SCREEN_WIDTH*3/8,ProgramManager.SCREEN_HEIGHT-8-40,ProgramManager.SCREEN_WIDTH/4,40);
@@ -44,7 +45,7 @@ public class ScreenHelp extends JPanel implements ITrigger, IReceiver {
 		this.leftArrowButton.setEnabled(false);
 		this.rightArrowButton = new ButtonArrow(ProgramManager.SCREEN_WIDTH*31/48,ProgramManager.SCREEN_HEIGHT-8-40,ProgramManager.SCREEN_WIDTH/3,40,Direction.RIGHT);
 		this.rightArrowButton.addReceiver(this);
-		if(this.receivers.size()<=1)
+		if(this.tutorials.size()<=1)
 			this.rightArrowButton.setEnabled(false);
 		ScreenMouseHandler mouseHandler = new ScreenMouseHandler();
 		this.addMouseListener(mouseHandler);
@@ -65,22 +66,26 @@ public class ScreenHelp extends JPanel implements ITrigger, IReceiver {
 		else if(title.equals("key-data")){
 			//do nothing
 		}
-		else if(title.equals("left-arrow")){
-			index--;
-			if(index<=0)
-				this.leftArrowButton.setEnabled(false);
-			else
-				this.leftArrowButton.setEnabled(true);
+		else if(title.equals("arrow-left")){
+			this.index--;
+			this.checkIndex();
 		}
-		else if(title.equals("right-arrow")){
-			index++;
-			if(index>=this.tutorials.size()-1)
-				this.rightArrowButton.setEnabled(false);
-			else
-				this.rightArrowButton.setEnabled(true);
+		else if(title.equals("arrow-right")){
+			this.index++;
+			this.checkIndex();
 		}
 		else
 			pushData(title,data);
+	}
+	private void checkIndex(){
+		if(this.index>=this.tutorials.size()-1)
+			this.rightArrowButton.setEnabled(false);
+		else
+			this.rightArrowButton.setEnabled(true);
+		if(this.index<=0)
+			this.leftArrowButton.setEnabled(false);
+		else
+			this.leftArrowButton.setEnabled(true);
 	}
 	@Override
 	public void pushData(String title, String[] data) {
@@ -101,8 +106,8 @@ public class ScreenHelp extends JPanel implements ITrigger, IReceiver {
 		this.homeButton.render(g);
 		this.leftArrowButton.render(g);
 		this.rightArrowButton.render(g);
-		if(this.index>0&&this.index<this.tutorials.size()&&this.tutorials.get(this.index)!=null)
-			g.drawImage(this.tutorials.get(this.index),ProgramManager.SCREEN_WIDTH/10,this.header.getHeight()+8,ProgramManager.SCREEN_WIDTH*4/5,ProgramManager.SCREEN_HEIGHT*4/5,null);
+		if(this.index>=0&&this.index<this.tutorials.size()&&this.tutorials.get(this.index)!=null)
+			g.drawImage(this.tutorials.get(this.index),ProgramManager.SCREEN_WIDTH/10-8,this.header.getHeight()-8,ProgramManager.SCREEN_WIDTH*8/10+16,ProgramManager.SCREEN_HEIGHT*7/10+18,null);
 		g.setColor(Color.black);
 		g.drawRect(0, 0, super.getWidth()-1, super.getHeight()-1);
 	}
