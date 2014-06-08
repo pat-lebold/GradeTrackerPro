@@ -98,15 +98,11 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 			super.pushData("cancel-group", pushData);
 		}
 		else if(title.equals("add-new-grade")){
-			super.removeComponent(this.addButton);
-			System.out.println(this.addButton.getY());
 			this.createGrade = new GradeCreationWidget(super.getX()+8,this.addButton.getY(),super.getWidth()-24-super.slideWidth,40);
 			this.createGrade.addReceiver(this);
-			System.out.println(this.createGrade.getY());
 			this.addReceiver(createGrade);
-			this.addButton.setVisibility(false);
-			super.removeComponent(this.addButton);
 			super.addComponent(this.createGrade);
+			super.removeComponent(this.addButton);
 			super.ping("update", null);
 		}
 		else if(title.equals("remove-widget")){
@@ -170,8 +166,9 @@ public class GroupContainer extends AScrollableGraphicsContainer {
 	public void setLocation(double x, double y){
 		double dy = super.getY()-y;
 		super.setLocation(x, y);
-		if(this.createGrade!=null)
+		if(this.createGrade!=null){
 			this.createGrade.setLocation(this.createGrade.getX(), this.createGrade.getY()+dy);
+		}
 	}
 	private void updateTotalGrade(){
 		double contribution = this.group.getValue();

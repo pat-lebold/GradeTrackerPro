@@ -69,6 +69,17 @@ public class GradeCreationWidget extends AGraphicsContainer implements IReceiver
 			super.pushData("update",null);
 		}
 	}
+	
+	@Override
+	public void setLocation(double x, double y){
+		double dy = y-super.getY();
+		this.textName.setLocation(this.textName.getX(), this.textName.getY()+dy);
+		this.textEarned.setLocation(this.textEarned.getX(),this.textEarned.getY()+dy);
+		this.textTotal.setLocation(this.textTotal.getX(),this.textTotal.getY()+dy);
+		this.confirm.setLocation(this.confirm.getX(), this.confirm.getY()+dy);
+		this.cancel.setLocation(this.cancel.getX(), this.cancel.getY()+dy);
+		super.setLocation(x, y+dy);
+	}
 
 	@Override
 	public void render(Graphics g) {
