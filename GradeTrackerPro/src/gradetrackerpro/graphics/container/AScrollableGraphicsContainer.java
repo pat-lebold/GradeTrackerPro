@@ -1,6 +1,5 @@
 package gradetrackerpro.graphics.container;
 import gradetrackerpro.graphics.AGraphicsEntity;
-import gradetrackerpro.graphics.GradeCreationWidget;
 import gradetrackerpro.transmission.IReceiver;
 
 import java.awt.Color;
