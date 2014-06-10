@@ -5,10 +5,14 @@ import gradetrackerpro.transmission.ITrigger;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 	private ArrayList<IReceiver> receivers;
@@ -22,11 +26,24 @@ public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 		super(x,y,width,height);
 		this.receivers = new ArrayList<IReceiver>();
 		this.defaultText=defaultText;
-		this.font = new Font("Serif",Font.PLAIN,24);
 		this.enabled = false;
 		this.hardText = "";
 		this.softText = this.defaultText;
 		this.message=message;
+		try{
+			Font franklinGothicMedium = Font.createFont(Font.TRUETYPE_FONT, new File("fonts/FranklinGothicMedium.ttf")).deriveFont(18f);
+			GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			ge.registerFont(franklinGothicMedium);
+			this.font = franklinGothicMedium;
+		}
+		catch(IOException e){
+			System.out.println("Could not locate font.");
+			this.font = new Font("Serif",Font.PLAIN,24);
+		}
+		catch(FontFormatException e){
+			System.out.println("Could not format font.");
+			this.font = new Font("Serif",Font.PLAIN,24);
+		}
 	}
 	public void setEnabled(boolean enabled){
 		this.enabled=enabled;
@@ -62,11 +79,11 @@ public class TextBox extends AGraphicsEntity implements ITrigger, IReceiver{
 		int hardWidth = metrics.stringWidth(this.hardText);
 		int finalWidth = metrics.stringWidth(this.hardText + this.softText);
 		if(finalWidth > super.getWidth()-8){
-			this.font = new Font("Serif",Font.PLAIN,this.font.getSize()-1);
+			this.font = new Font("Franklin Gothic Medium",Font.PLAIN,this.font.getSize()-1);
 			drawText(g);
 		}
 		else{
-			this.font = new Font("Serif",Font.PLAIN,24);
+			this.font = new Font("Franklin Gothic Medium",Font.PLAIN,18);
 			g.setColor(Color.black);
 			g.drawString(this.hardText, 4+(int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
 			g.setColor(new Color(255,127,39,255));

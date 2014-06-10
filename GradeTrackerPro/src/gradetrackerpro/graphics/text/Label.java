@@ -19,11 +19,11 @@ public class Label extends TextBox {
 		int hardWidth = metrics.stringWidth(super.hardText);
 		int finalWidth = metrics.stringWidth(super.hardText + super.softText);
 		if(finalWidth > super.getWidth()-8){
-			super.font = new Font("Serif",Font.PLAIN,super.font.getSize()-1);
+			super.font = new Font("Franklin Gothic Medium",Font.PLAIN,super.font.getSize()-1);
 			this.render(g);
 		}
 		else{
-			super.font = new Font("Serif",Font.PLAIN,24);
+			super.font = new Font("Franklin Gothic Medium",Font.PLAIN,18);
 			g.setColor(this.color);
 			g.drawString(super.hardText, 4+(int)super.getX(), (int)super.getY() + super.getHeight()/2 + fontHeight/4);
 			g.setColor(Color.gray);
