@@ -18,11 +18,11 @@ public class DataManager {
 	
 	public static ArrayList<BufferedImage> pullTutorials(){
 		ArrayList<BufferedImage> tutorials = new ArrayList<BufferedImage>();
-		File file = new File("img\\tutorials");
+		File file = new File("img/tutorials");
 		int numTutorials = file.listFiles().length;
 		for(int n=1;n<=numTutorials;n++){
 			try {
-				BufferedImage tutorialImage = ImageIO.read(new File("img\\tutorials\\tutorial_"+n+".png"));
+				BufferedImage tutorialImage = ImageIO.read(new File("img/tutorials/tutorial_"+n+".png"));
 				tutorials.add(tutorialImage);
 			} catch (IOException e) {
 				//Do nothing
